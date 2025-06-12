@@ -13,3 +13,5 @@ export class StartButton extends Actor {
         this.on('pointerup', onClick)
     }
 }
+
+// code is tot hier gemaakt door charge

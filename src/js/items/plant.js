@@ -13,3 +13,5 @@ export class Plant extends Actor {
         this.graphics.use(plantSprite)
     }
 }
+
+// code is tot hier gemaakt door charge

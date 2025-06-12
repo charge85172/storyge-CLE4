@@ -13,3 +13,5 @@ export class QuitButton extends Actor {
         this.on('pointerup', onClick)
     }
 }
+
+// code is tot hier gemaakt door charge

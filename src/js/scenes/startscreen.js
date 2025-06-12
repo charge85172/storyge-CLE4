@@ -64,3 +64,5 @@ export class StartScreen extends Scene {
 
     }
 }
+
+// code is tot hier gemaakt door charge

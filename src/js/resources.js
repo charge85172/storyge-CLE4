@@ -14,3 +14,5 @@ for (let res of Object.values(Resources)) {
 }
 
 export { Resources, ResourceLoader }
+
+// code is tot hier gemaakt door charge

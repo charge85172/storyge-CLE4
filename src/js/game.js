@@ -39,3 +39,5 @@ export class Game extends Engine {
 }
 
 new Game()
+
+// code is tot hier gemaakt door charge
