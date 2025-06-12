@@ -5,7 +5,8 @@ const Resources = {
     Museum: new ImageSource('intro.png'),
     Quit: new ImageSource('quitbutton.png'),
     Start: new ImageSource('startbutton.png'),
-    Plant: new ImageSource('plant.png')
+    Plant: new ImageSource('plant.png'),
+    GoldCoin: new ImageSource('goldcoin.png')
 }
 
 const ResourceLoader = new Loader()
