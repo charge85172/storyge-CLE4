@@ -1,7 +1,7 @@
 import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 
-export class SurinameRoom extends Scene {
+export class Suriname extends Scene {
     constructor() {
         super();
 

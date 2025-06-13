@@ -1,6 +1,7 @@
 import { Scene, Label, Font, Color, Vector, Actor } from "excalibur"
 import { Resources } from "../resources.js"
 import { StartButton } from "../assets/startbutton.js"
+import { China } from "./china.js"
 import { QuitButton } from "../assets/quitbutton.js"
 import { Plant } from "../items/plant.js"
 
@@ -53,11 +54,19 @@ export class StartScreen extends Scene {
         })
         this.add(this.label)
     }
+    initializeChina() {
+        // Only add the scene if it doesn't exist yet
+        if (!this.engine.scenes['china']) {
+            this.engine.add('china', new China())
+        }
+        this.engine.goToScene('china')
+        console.log("China scene initialized")
+    }
     handleStart() {
         this.engine.goToScene('game')
         // na 5 seconden naar een andere scene, repurpose this om naar een ander scherm te gaan
         setTimeout(() => {
-            this.engine.goToScene('start')
+            this.initializeChina()
         }, 5000)
     }
     handleQuit() {

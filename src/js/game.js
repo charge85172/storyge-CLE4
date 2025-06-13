@@ -16,6 +16,7 @@ export class Game extends Engine {
 
     setupScenes() {
         this.add('start', new StartScreen())
+        // Initialize the game scene
         const gameScene = new Scene()
         // Add background image to game scene
         const bgSprite = Resources.Background.toSprite()
