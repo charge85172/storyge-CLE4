@@ -1,6 +1,5 @@
 import { ImageSource, Loader } from "excalibur"
 
-
 const Resources = {
     Background: new ImageSource('background.png'),
     Museum: new ImageSource('intro.png'),
@@ -9,7 +8,7 @@ const Resources = {
     Plant: new ImageSource('plant.png'),
     GoldCoin: new ImageSource('goldcoin.png'),
     Room1: new ImageSource('room1.png'),
-    Room2: new ImageSource('room2.png'),
+    Room2: new ImageSource('room2.png')
 }
 
 const ResourceLoader = new Loader()

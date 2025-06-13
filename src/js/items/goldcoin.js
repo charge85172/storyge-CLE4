@@ -1,15 +1,13 @@
-import { Actor, Vector } from "excalibur"
+import { Prop } from "./prop.js"
 import { Resources } from "../resources.js"
 
-export class GoldCoin extends Actor {
-    constructor() {
+export class GoldCoin extends Prop {
+    constructor(pos) {
+        const goldCoinSprite = Resources.GoldCoin.toSprite()
         super({
-            width: Resources.GoldCoin.width,
-            height: Resources.GoldCoin.height
-        });
-    }
-
-    onInitialize() {
-        this.graphics.use(Resources.GoldCoin.toSprite());
+            pos: pos,
+            sprite: goldCoinSprite,
+            scale: 1 // Adjust scale as needed
+        })
     }
 }

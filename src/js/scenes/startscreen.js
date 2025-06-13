@@ -3,7 +3,7 @@ import { Resources } from "../resources.js"
 import { StartButton } from "../assets/startbutton.js"
 import { China } from "./china.js"
 import { QuitButton } from "../assets/quitbutton.js"
-import { Plant } from "../items/plant.js"
+
 
 export class StartScreen extends Scene {
     constructor() {
@@ -35,10 +35,6 @@ export class StartScreen extends Scene {
         )
         this.add(quitButton)
 
-        // // testing the plant actor
-        // const plantActor = new Plant(new Vector(1050, 600))
-        // this.add(plantActor)
-
         // Add a label above the buttons
         this.label = new Label({
             text: "Welcome!",
@@ -63,7 +59,11 @@ export class StartScreen extends Scene {
         console.log("China scene initialized")
     }
     handleStart() {
-        this.engine.goToScene('game')
+        if (!this.engine.scenes['loading']) {
+            this.engine.add('loading', new LoadingScreen())
+        }
+        this.engine.goToScene('loading')
+        console.log("Loading scene initialized")
         // na 5 seconden naar een andere scene, repurpose this om naar een ander scherm te gaan
         setTimeout(() => {
             this.initializeChina()

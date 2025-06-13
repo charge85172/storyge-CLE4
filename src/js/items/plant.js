@@ -1,16 +1,14 @@
-import { Actor, Vector } from "excalibur"
+import { Prop } from "./prop.js"
 import { Resources } from "../resources.js"
 
-export class Plant extends Actor {
+export class Plant extends Prop {
     constructor(pos) {
         const plantSprite = Resources.Plant.toSprite()
-        plantSprite.scale = plantSprite.scale.scale(0.1)
         super({
             pos: pos,
-            width: plantSprite.width,
-            height: plantSprite.height
+            sprite: plantSprite,
+            scale: 0.1
         })
-        this.graphics.use(plantSprite)
     }
 }
 
