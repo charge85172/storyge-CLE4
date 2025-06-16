@@ -22,7 +22,8 @@ const Resources = {
     GoldIngot: new ImageSource('goldingot.png'),
     Scroll: new ImageSource('scroll.png'),
     SunWukong: new ImageSource('sunwukong.png'),
-    WukongStaff: new ImageSource('wukongstaff.png')
+    WukongStaff: new ImageSource('wukongstaff.png'),
+    QuestionBook: new ImageSource('questionbook.png')
 }
 
 const ResourceLoader = new Loader()
