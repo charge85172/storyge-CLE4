@@ -1,12 +1,12 @@
 import { Resources } from "../../../resources.js"
 import { ChineseItem } from "../proptypes/chineseitem.js"
 
-export class SunWukong extends ChineseItem {
+export class GoldIngot extends ChineseItem {
     constructor(pos) {
-        const sunWukongsprite = Resources.SunWukong.toSprite()
+        const goldIngotSprite = Resources.ChineseGoldIngot.toSprite()
         super({
             pos: pos,
-            sprite: sunWukongsprite,
+            sprite: goldIngotSprite,
             scale: 1 // Adjust scale as needed
         })
     }

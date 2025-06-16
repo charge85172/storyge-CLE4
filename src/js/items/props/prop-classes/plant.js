@@ -11,5 +11,3 @@ export class Plant extends NormalItem {
         })
     }
 }
-
-// code is tot hier gemaakt door charge

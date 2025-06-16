@@ -3,7 +3,7 @@ import { Resources } from "../resources.js"
 
 export class QuitButton extends Actor {
     constructor(pos, onClick) {
-        const sprite = Resources.Quit.toSprite()
+        const sprite = Resources.QuitButton.toSprite()
         super({
             pos: pos,
             width: sprite.width,

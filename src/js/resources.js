@@ -1,29 +1,37 @@
 import { ImageSource, Loader } from "excalibur"
-import { Pillar } from "./items/props/prop classes/pillar"
 
 const Resources = {
+    // Main backgrounds and UI
     Background: new ImageSource('background.png'),
-    Museum: new ImageSource('intro.png'),
-    Quit: new ImageSource('quitbutton.png'),
-    Start: new ImageSource('startbutton.png'),
     BoxClosed: new ImageSource('boxclosed.png'),
     BoxOpen: new ImageSource('boxopen.png'),
+    ContinueButton: new ImageSource('continuebutton.png'),
     Plant: new ImageSource('plant.png'),
+    Museum: new ImageSource('intro.png'),
+    QuestionBook: new ImageSource('questionBook.png'),
+    QuitButton: new ImageSource('quitbutton.png'),
     Room1: new ImageSource('room1.png'),
-    Room2: new ImageSource('room2.png'),
-    Lamp: new ImageSource('lamp.png'),
-    Pillar: new ImageSource('pillar.png'),
-    Shelf: new ImageSource('shelf.png'),
-    Window: new ImageSource('window.png'),
-    ChineseFan: new ImageSource('chinesefan.png'),
-    ChinesePorcelain: new ImageSource('chineseporcelain.png'),
-    DragonScroll: new ImageSource('dragonscroll.png'),
-    GoldCoin: new ImageSource('goldcoin.png'),
-    GoldIngot: new ImageSource('goldingot.png'),
-    Scroll: new ImageSource('scroll.png'),
-    SunWukong: new ImageSource('sunwukong.png'),
-    WukongStaff: new ImageSource('wukongstaff.png'),
-    QuestionBook: new ImageSource('questionbook.png')
+    SettingsButton: new ImageSource('settingsbutton.png'),
+    StartButton: new ImageSource('startbutton.png'),
+
+    // Items from public/basic
+    Bench: new ImageSource('basic/bench.png'),
+    HangedPlant: new ImageSource('basic/hanged-plant.png'),
+    Lamp: new ImageSource('basic/lamp.png'),
+    Pillar: new ImageSource('basic/pilar.png'),
+    Plant1: new ImageSource('basic/plant1.png'),
+    Shelf: new ImageSource('basic/shelve.png'),
+    Window: new ImageSource('basic/window.png'),
+
+    // Items from public/china
+    ChineseFan: new ImageSource('china/chinesefan.png'),
+    ChinesePorcelain: new ImageSource('china/chineseporcelain.png'),
+    ChineseDragonScroll: new ImageSource('china/dragonscroll.png'),
+    ChineseGoldCoin: new ImageSource('china/goldcoin.png'),
+    ChineseGoldIngot: new ImageSource('china/goldingot.png'),
+    ChineseScroll: new ImageSource('china/scroll.png'),
+    ChineseSunWukong: new ImageSource('china/sun wukong.png'),
+    ChineseWukongStaff: new ImageSource('china/wukongstaff.png'),
 }
 
 const ResourceLoader = new Loader()

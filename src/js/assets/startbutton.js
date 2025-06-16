@@ -3,7 +3,7 @@ import { Resources } from "../resources.js"
 
 export class StartButton extends Actor {
     constructor(pos, onClick) {
-        const sprite = Resources.Start.toSprite()
+        const sprite = Resources.StartButton.toSprite()
         super({
             pos: pos,
             width: sprite.width,
