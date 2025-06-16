@@ -7,8 +7,8 @@ export class China extends Scene {
         super();
     }
 
-    onInitialize(engine) { // Code by Sissi
-        const background = Resources.Room1.toSprite();
+    onInitialize(engine) {
+        const background = Resources.Room.toSprite();
         const backgroundActor = new Actor({
             pos: new Vector(engine.drawWidth / 2, engine.drawHeight / 2),
             width: engine.drawWidth,
@@ -18,7 +18,7 @@ export class China extends Scene {
         backgroundActor.graphics.use(background);
         this.add(backgroundActor);
 
-        const box = new Box(engine); // Code by Sissi
+        const box = new Box(engine);
         this.add(box);
     }
 }
