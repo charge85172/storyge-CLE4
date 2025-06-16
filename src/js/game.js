@@ -8,6 +8,8 @@ export class Game extends Engine {
             width: 1280,
             height: 720,
             maxFps: 30,
+            pixelRatio: 1,
+            pixelArt: true,
             displayMode: DisplayMode.FitScreen
         })
         this.start(ResourceLoader).then(() => this.setupScenes())
