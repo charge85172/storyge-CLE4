@@ -13,5 +13,10 @@ export class Prop extends Actor {
         if (sprite) {
             this.graphics.use(sprite)
         }
+        this.itemType = "prop" // Default item type
+    }
+
+    isType(type) {
+        return this.itemType === type
     }
 }

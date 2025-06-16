@@ -1,7 +1,7 @@
-import { Prop } from "./prop.js"
-import { Resources } from "../resources.js"
+import { Resources } from "../../../resources.js"
+import { ChineseItem } from "../proptypes/chineseitem.js"
 
-export class GoldCoin extends Prop {
+export class GoldCoin extends ChineseItem {
     constructor(pos) {
         const goldCoinSprite = Resources.GoldCoin.toSprite()
         super({

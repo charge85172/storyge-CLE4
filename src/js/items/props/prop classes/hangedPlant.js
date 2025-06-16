@@ -1,7 +1,7 @@
-import { Prop } from "./prop.js"
-import { Resources } from "../resources.js"
+import { Resources } from "../../../resources.js"
+import { NormalItem } from "../proptypes/normalitem.js"
 
-export class HangedPlant extends Prop {
+export class HangedPlant extends NormalItem {
     constructor(pos) {
         const hangedPlantSprite = Resources.HangedPlant.toSprite()
         super({

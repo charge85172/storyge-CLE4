@@ -59,15 +59,11 @@ export class StartScreen extends Scene {
         console.log("China scene initialized")
     }
     handleStart() {
-        if (!this.engine.scenes['loading']) {
-            this.engine.add('loading', new LoadingScreen())
+        if (!this.engine.scenes['china']) {
+            this.engine.add('china', new China())
         }
-        this.engine.goToScene('loading')
-        console.log("Loading scene initialized")
-        // na 5 seconden naar een andere scene, repurpose this om naar een ander scherm te gaan
-        setTimeout(() => {
-            this.initializeChina()
-        }, 5000)
+        this.engine.goToScene('china')
+        console.log("China scene initialized")
     }
     handleQuit() {
 
