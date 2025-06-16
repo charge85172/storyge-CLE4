@@ -7,7 +7,7 @@ export class BoxClosed extends Prop {
         super({
             pos: pos,
             sprite: boxClosedSprite,
-            scale: 1 // Adjust scale as needed
+            scale: 0.15 // Adjust scale as needed
         })
     }
 }

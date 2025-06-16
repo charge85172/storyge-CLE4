@@ -1,5 +1,8 @@
 import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
+import { BoxOpen } from "../items/props/prop classes/boxopen.js";
+import { BoxClosed } from "../items/props/prop classes/boxclose.js";
+import { Box } from "../items/props/prop classes/box.js";
 
 export class China extends Scene {
     constructor() {
@@ -16,5 +19,8 @@ export class China extends Scene {
         });
         backgroundActor.graphics.use(background);
         this.add(backgroundActor);
+
+        const box = new Box(engine); // Code by Sissi
+        this.add(box);
     }
 }
