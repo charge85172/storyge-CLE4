@@ -11,22 +11,18 @@ import { Scroll } from "./scroll.js";
 
 export class Box extends Actor {
     constructor(engine) {
-        // todo clean up, no code above super call
-        const scale = 0.2;
-        const closedSprite = Resources.BoxClosed.toSprite();
-        closedSprite.scale = new Vector(scale, scale);
-        // Bottom center position
-        const x = engine.drawWidth / 2;
-        const y = engine.drawHeight - (closedSprite.height * scale) / 2 - 40;
         super({
-            pos: new Vector(x, y),
-            width: closedSprite.width * scale,
-            height: closedSprite.height * scale,
+            pos: new Vector(640, 560),
+            width: Resources.BoxClosed.width * 0.2,
+            height: Resources.BoxClosed.height * 0.2,
             anchor: Vector.Half
         });
+        const closedSprite = Resources.BoxClosed.toSprite();
+        closedSprite.scale = new Vector(0.2, 0.2);
         this.graphics.use(closedSprite);
+
         this.openSprite = Resources.BoxOpen.toSprite();
-        this.openSprite.scale = new Vector(scale, scale);
+        this.openSprite.scale = new Vector(0.2, 0.2);
         this.isOpen = false;
         this.lastGivenItem = null;
     }
@@ -47,14 +43,11 @@ export class Box extends Actor {
         this.isOpen = true;
     }
 
-    // create a new instance of the item that we really want
+    // create a new instance of the item, send that item to the book scene
+    // note: you could also just send the id to the book scene
     giveRandomItem() {
-        const idx = Math.floor(Math.random() * 8);
-        const item = this.createNewRandomItem(idx);
-
-        // voorbeeld: 
-        // item.tag = "chinese"
-
+        const id = Math.floor(Math.random() * 8)
+        const item = this.createNewRandomItem(id)
         this.lastGivenItem = item;
         this.scene.engine.goToScene('itemreceivescreen', { sceneActivationData: { item } });
     }
