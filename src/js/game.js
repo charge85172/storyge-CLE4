@@ -1,6 +1,9 @@
 import { Engine, DisplayMode, Scene, Actor, Vector } from "excalibur"
 import { Resources, ResourceLoader } from "./resources.js"
 import { StartScreen } from "./scenes/startscreen.js"
+import { GameScene } from "./scenes/gamescene.js"
+import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
+import { Bench } from "../js/items/bench.js"
 
 export class Game extends Engine {
     constructor() {
@@ -13,35 +16,14 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen
         })
         this.start(ResourceLoader).then(() => this.setupScenes())
-        // this.start()
     }
 
     setupScenes() {
         this.add('start', new StartScreen())
-        // Initialize the game scene
-        const gameScene = new Scene()
-        // Add background image to game scene
-        const bgSprite = Resources.Background.toSprite()
-        const bgActor = new Actor({
-            pos: new Vector(bgSprite.width / 2, bgSprite.height / 2),
-            width: bgSprite.width,
-            height: bgSprite.height
-        })
-        bgActor.graphics.use(bgSprite)
-        gameScene.add(bgActor)
-        this.add('game', gameScene)
+        this.add('game', new GameScene())
+        this.add('itemreceivescreen', new ItemReceiveScreen());
         this.goToScene('start')
-        console.log("game boot")
-        
-        //overbodig
-        // this.start()
     }
-
-    // startScene() { }
-
-    // Add your game logic to the 'game' scene
 }
 
 new Game()
-
-// code is tot hier gemaakt door charge

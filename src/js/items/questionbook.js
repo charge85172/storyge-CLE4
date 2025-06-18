@@ -1,5 +1,5 @@
 import { Actor, Vector } from "excalibur"
-import { Resources } from "../../../resources.js"
+import { Resources } from "../resources.js"
 
 export class QuestionBook extends Actor {
     constructor(pos, title = "", questions = []) {

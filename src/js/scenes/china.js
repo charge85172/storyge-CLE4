@@ -1,6 +1,6 @@
 import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
-import { Box } from "../items/props/prop-classes/box.js";
+import { Box } from "../items/box.js";
 
 export class China extends Scene {
     //overbodig
