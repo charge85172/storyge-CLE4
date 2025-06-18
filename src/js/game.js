@@ -32,8 +32,9 @@ export class Game extends Engine {
         this.add('game', gameScene)
         this.goToScene('start')
         console.log("game boot")
-
-        this.start()
+        
+        //overbodig
+        // this.start()
     }
 
     // startScene() { }

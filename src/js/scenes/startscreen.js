@@ -6,9 +6,10 @@ import { QuitButton } from "../assets/quitbutton.js"
 
 
 export class StartScreen extends Scene {
-    constructor() {
-        super()
-    }
+    //overbodig
+    // constructor() {
+    //     super()
+    // }
 
     onActivate() {
         // Add background image (museum)

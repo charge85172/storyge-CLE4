@@ -2,9 +2,11 @@ import { Scene, Label, Font, Color, Vector, Actor } from "excalibur"
 import { Resources } from "../resources.js"
 
 export class LoadingScreen extends Scene {
-    constructor() {
-        super()
-    }
+    //overbodig
+    // constructor() {
+    //     super()
+    // }
+    
 
     onActivate() {
         console.log("LoadingScreen activated")

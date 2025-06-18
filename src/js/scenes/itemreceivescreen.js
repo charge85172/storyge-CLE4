@@ -2,9 +2,10 @@ import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 
 export class ItemReceiveScreen extends Scene {
-    constructor() {
-        super();
-    }
+    //overbodig
+    // constructor() {
+    //     super()
+    // }
     onActivate(ctx) {
         console.log("ItemReceiveScreen activated");
         // Background

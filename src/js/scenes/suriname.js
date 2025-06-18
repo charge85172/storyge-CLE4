@@ -2,9 +2,10 @@ import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 
 export class Suriname extends Scene {
-    constructor() {
-        super();
-    }
+    //overbodig
+    // constructor() {
+    //     super()
+    // }
 
     onInitialize(engine) {
         const backgroundRoom1 = Resources.Room1.toSprite();

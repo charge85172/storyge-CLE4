@@ -3,9 +3,10 @@ import { Resources } from "../resources.js";
 import { Box } from "../items/props/prop-classes/box.js";
 
 export class China extends Scene {
-    constructor() {
-        super();
-    }
+    //overbodig
+    // constructor() {
+    //     super()
+    // }
 
     onInitialize(engine) {
         const background = Resources.Room.toSprite();
