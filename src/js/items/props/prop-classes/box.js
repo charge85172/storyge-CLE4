@@ -31,13 +31,13 @@ export class Box extends Actor {
         this.engine = engine; // Save reference for later
         this.items = [
             new Bench(new Vector(200, 360)),
-            new Lamp(new Vector(200, 360)),
-            new Pillar(new Vector(200, 360)),
-            new HangedPlant(new Vector(200, 360)),
-            new Chinesefan(new Vector(200, 360)),
-            new GoldCoin(new Vector(200, 360)),
-            new GoldIngot(new Vector(200, 360)),
-            new Scroll(new Vector(200, 360)),
+            // new Lamp(new Vector(200, 360)),
+            // new Pillar(new Vector(200, 360)),
+            // new HangedPlant(new Vector(200, 360)),
+            // new Chinesefan(new Vector(200, 360)),
+            // new GoldCoin(new Vector(200, 360)),
+            // new GoldIngot(new Vector(200, 360)),
+            // new Scroll(new Vector(200, 360)),
         ];
         this.lastGivenItem = null;
 

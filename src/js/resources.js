@@ -6,21 +6,21 @@ const Resources = {
     BoxClosed: new ImageSource('boxclosed.png'),
     BoxOpen: new ImageSource('boxopen.png'),
     ContinueButton: new ImageSource('continuebutton.png'),
-    Plant: new ImageSource('plant.png'),
+    // Plant: new ImageSource('plant.png'),
     Museum: new ImageSource('intro.png'),
     QuestionBook: new ImageSource('questionbook.png'),
     QuitButton: new ImageSource('quitbutton.png'),
     Room: new ImageSource('room.png'),
-    SettingsButton: new ImageSource('settingsbutton.png'),
+    SettingsButton: new ImageSource('setting.png'),
     StartButton: new ImageSource('startbutton.png'),
 
     // Items from public/basic
     Bench: new ImageSource('basic/bench.png'),
     HangedPlant: new ImageSource('basic/hangedplant.png'),
     Lamp: new ImageSource('basic/lamp.png'),
-    Pillar: new ImageSource('basic/pillar.png'),
-    Plant1: new ImageSource('basic/plant1.png'),
-    Shelf: new ImageSource('basic/shelf.png'),
+    Pillar: new ImageSource('basic/pilar.png'),
+    Plant: new ImageSource('basic/plant.png'),
+    Shelf: new ImageSource('basic/shelve.png'),
     Window: new ImageSource('basic/window.png'),
 
     // Items from public/china
