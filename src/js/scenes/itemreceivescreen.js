@@ -1,4 +1,4 @@
-import { Actor, Scene, Vector, Color, FontUnit, Label, Font } from "excalibur";
+import { Actor, Scene, Vector, Color, FontUnit, Label, Font, Keys } from "excalibur";
 import { Resources } from "../resources.js";
 import { Bench } from "../items/bench.js";
 import { Lamp } from "../items/lamp.js";
@@ -84,6 +84,12 @@ export class ItemReceiveScreen extends Scene {
             default:
                 console.error("Dit item bestaat dus niet:", idx);
                 return null;
+        }
+    }
+    onPostUpdate() {
+        if (this.engine.input.keyboard.wasPressed(Keys.Space)) {
+            this.engine.goToScene('china')
+            console.log("Back to China scene")
         }
     }
 }
