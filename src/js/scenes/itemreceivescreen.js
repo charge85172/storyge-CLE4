@@ -16,20 +16,37 @@ export class ItemReceiveScreen extends Scene {
     }
 
     onActivate(ctx) {
+        // Verwijder het vorige item als het bestaat
+        if (this.currentItem) {
+            this.currentItem.kill();
+            this.currentItem = null;
+        }
+        // Maak de label leeg voordat een nieuw item wordt getoond
+        if (this.label) {
+            this.label.text = "";
+        }
         if (ctx?.data?.id) {
-            // hier krijg je een ID binnen
-            console.log("book received item: " + ctx.data.id);
-            // plaats het juiste object voor dit ID in het book
+            // Hier krijg je een ID binnen
+            console.log("boek ontvangt item: " + ctx.data.id);
+            // Plaats het juiste object voor dit ID in het boek
             const item = this.createReceivedItem(ctx.data.id)
             this.add(item)
-
-            // schaal en pos kan je hier ook nog aanpassen
+            this.currentItem = item;
+            // Schaal en positie kun je hier ook nog aanpassen
             item.pos = new Vector(360, 360);
         }
     }
 
     onDeactivate() {
-        // hier moet je items weer verwijderen als die later niet meer nodig zijn
+        // Verwijder het huidige item wanneer je de scene verlaat
+        if (this.currentItem) {
+            this.currentItem.kill();
+            this.currentItem = null;
+        }
+        // Maak de label leeg bij het verlaten van de scene
+        if (this.label) {
+            this.label.text = "";
+        }
     }
 
     drawBackground(engine) {
