@@ -18,14 +18,15 @@ export class GameScene extends Scene {
     onActivate(ctx, engine) {
         console.log("game scene activated");
     }
-}
 
-createGrid(); {
+    createGrid() {
     for (let i = 0; i < 25; i++) {
             let column = Math.round(Math.random() * 12)
             let row = Math.round(Math.random() * 8)
 
             let pos = new Vector(column * 100, row * 100)
-            this.add(new Sheep(pos))
+            this.add(new Bench(pos))
         }
 }
+}
+
