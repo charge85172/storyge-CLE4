@@ -41,7 +41,7 @@ export class StartScreen extends Scene {
             text: "Welcome!",
             pos: new Vector(1100, 250),
             font: new Font({
-                family: 'Arial',
+                family: 'Georgia',
                 size: 60,
                 color: Color.Black,
                 unit: 'px',

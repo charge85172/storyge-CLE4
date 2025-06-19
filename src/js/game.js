@@ -1,9 +1,8 @@
 import { Engine, DisplayMode, Scene, Actor, Vector } from "excalibur"
-import { Resources, ResourceLoader } from "./resources.js"
+import { ResourceLoader } from "./resources.js"
 import { StartScreen } from "./scenes/startscreen.js"
 import { GameScene } from "./scenes/gamescene.js"
 import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
-import { Bench } from "../js/items/bench.js"
 
 export class Game extends Engine {
 

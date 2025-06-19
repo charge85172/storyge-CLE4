@@ -1,4 +1,4 @@
-import { ImageSource, Loader } from "excalibur"
+import { ImageSource, Sound, Resource, FontSource, Loader, ImageWrapping } from 'excalibur'
 
 const Resources = {
     // Main backgrounds and UI
@@ -40,5 +40,3 @@ for (let res of Object.values(Resources)) {
 }
 
 export { Resources, ResourceLoader }
-
-// code is tot hier gemaakt door charge
