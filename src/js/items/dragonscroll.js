@@ -6,5 +6,7 @@ export class DragonScroll extends Actor {
         super({ pos, width: Resources.ChineseDragonScroll.width, height: Resources.ChineseDragonScroll.height })
         this.graphics.use(Resources.ChineseDragonScroll.toSprite())
         this.scale = new Vector(1, 1)
+        this.tag = "chineseItem"
+
     }
 }

@@ -1,3 +1,4 @@
+import { Vector } from "excalibur";
 import { Resources } from "../resources.js"
 
 export class Plant extends Actor {
@@ -5,5 +6,7 @@ export class Plant extends Actor {
         super({ pos, width: Resources.Plant.width, height: Resources.Plant.height })
         this.graphics.use(Resources.Plant.toSprite())
         this.scale = new Vector(0.1, 0.1)
+        this.tag = "item";
+
     }
 }

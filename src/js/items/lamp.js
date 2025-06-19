@@ -6,5 +6,7 @@ export class Lamp extends Actor {
         super({ pos, width: Resources.Lamp.width, height: Resources.Lamp.height })
         this.graphics.use(Resources.Lamp.toSprite())
         this.scale = new Vector(0.6,0.6)
+        this.tag = "item";
+
     }
 }

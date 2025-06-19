@@ -6,5 +6,7 @@ export class SunWukong extends Actor {
         super({ pos, width: Resources.ChineseSunWukong.width, height: Resources.ChineseSunWukong.height })
         this.graphics.use(Resources.ChineseSunWukong.toSprite())
         this.scale = new Vector(1, 1)
+        this.tag = "chineseItem"
+
     }
 }

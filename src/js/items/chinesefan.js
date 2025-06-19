@@ -8,5 +8,8 @@ export class Chinesefan extends Actor {
         this.scale = new Vector(1, 1)
         // voorbeeld als je wil kunnen zien of dit item chinese is
         // this.tag = "chinese"
+        this.tag = "chineseItem"
+
+        // console.log(this.label);
     }
 }

@@ -6,5 +6,7 @@ export class Window extends Actor {
         super({ pos, width: Resources.Window.width, height: Resources.Window.height })
         this.graphics.use(Resources.Window.toSprite())
         this.scale = new Vector(1, 1)
+        this.tag = "item";
+        
     }
 }

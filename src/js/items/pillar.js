@@ -6,6 +6,8 @@ export class Pillar extends Actor {
         super({ pos, width: Resources.Pillar.width, height: Resources.Pillar.height })
         this.graphics.use(Resources.Pillar.toSprite())
         this.scale = new Vector(1, 1)
+        this.tag = "item";
+
     }
    
 }
