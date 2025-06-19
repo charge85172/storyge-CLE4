@@ -6,6 +6,9 @@ import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
 import { Bench } from "../js/items/bench.js"
 
 export class Game extends Engine {
+
+    playerProgress
+
     constructor() {
         super({
             width: 1280,
@@ -19,6 +22,8 @@ export class Game extends Engine {
     }
 
     setupScenes() {
+        this.playerProgress = []
+
         this.add('start', new StartScreen())
         this.add('game', new GameScene())
         this.add('itemreceivescreen', new ItemReceiveScreen());
