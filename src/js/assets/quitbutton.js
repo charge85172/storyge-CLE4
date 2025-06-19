@@ -10,7 +10,6 @@ export class QuitButton extends Actor {
             height: sprite.height
         })
         this.graphics.use(sprite)
-        this.on('pointerup', onClick)
     }
 }
 

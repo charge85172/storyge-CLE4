@@ -46,13 +46,18 @@ export class ItemReceiveScreen extends Scene {
         // text
         this.label = new Label({
             pos: new Vector(800, 250),
-            font: new Font({
-                family: 'Georgia',
-                size: 60,
-                color: Color.Black
-            })
+            font: Resources.PressStart2P.toFont({ size: 12 }),
         })
         this.add(this.label)
+
+        // prompt under the book
+        this.promptLabel = new Label({
+            text: "press space to place this item in your room",
+            pos: new Vector(400, 675), // visually under the book
+            font: Resources.PressStart2P.toFont({ size: 12 }),
+            color: Color.White,
+        });
+        this.add(this.promptLabel);
     }
 
     createReceivedItem(idx) {

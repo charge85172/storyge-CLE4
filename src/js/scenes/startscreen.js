@@ -11,7 +11,8 @@ export class StartScreen extends Scene {
     //     super()
     // }
 
-    onActivate() {
+    onActivate(ctx) {
+        this._engine = ctx.engine;
         // Add background image (museum)
         const museumSprite = Resources.Museum.toSprite()
         const museumActor = new Actor({
@@ -23,34 +24,67 @@ export class StartScreen extends Scene {
         this.add(museumActor)
 
         // Add Start button (right side, above quit)
-        const startButton = new StartButton(
+        this._startButton = new StartButton(
             new Vector(1100, 350),
             () => this.handleStart()
         )
-        this.add(startButton)
+        const startLabel = new Label({
+            text: "press S to start",
+            pos: new Vector(-175, 110),
+            font: Resources.PressStart2P.toFont({ size: 12 }),
+            color: Color.White,
+        })
+        this._startButton.addChild(startLabel)
+        this.add(this._startButton)
 
         // Add Quit button (right side, below start)
-        const quitButton = new QuitButton(
+        this._quitButton = new QuitButton(
             new Vector(1050, 500),
             () => this.handleQuit()
         )
-        this.add(quitButton)
+        const quitLabel = new Label({
+            text: "press Q to quit",
+            pos: new Vector(-100, 85),
+            font: Resources.PressStart2P.toFont({ size: 12 }),
+            color: Color.White,
+        })
+        this._quitButton.addChild(quitLabel)
+        this.add(this._quitButton)
 
         // Add a label above the buttons
         this.label = new Label({
-            text: "Welcome!",
-            pos: new Vector(1100, 250),
-            font: new Font({
-                family: 'Georgia',
-                size: 60,
-                color: Color.Black,
-                unit: 'px',
-                textAlign: 'center',
-                baseAlign: 'middle'
-            })
+            text: "Storyge",
+            pos: new Vector(900, 250),
+            font: Resources.PressStart2P.toFont({ size: 40 }),
+            color: Color.White,
         })
         this.add(this.label)
+
+        // Keyboard event handling for S and Q
+        this._keyHandler = (evt) => {
+            if (evt.key === 'KeyS') {
+                this.handleStart();
+            }
+            if (evt.key === 'KeyQ') {
+                this.handleQuit();
+            }
+        }
+        this._engine.input.keyboard.on('press', this._keyHandler);
+        setTimeout(() => {
+            const canvas = document.querySelector('canvas');
+            if (canvas) {
+                canvas.focus();
+            }
+        }, 500);
     }
+
+    onDeactivate() {
+        // Remove keyboard event handler when scene is deactivated
+        if (this._engine && this._keyHandler) {
+            this._engine.input.keyboard.off('press', this._keyHandler)
+        }
+    }
+
     initializeChina() {
         // Only add the scene if it doesn't exist yet
         if (!this.engine.scenes['china']) {

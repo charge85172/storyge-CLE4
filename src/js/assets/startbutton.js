@@ -10,7 +10,6 @@ export class StartButton extends Actor {
             height: sprite.height
         })
         this.graphics.use(sprite)
-        this.on('pointerup', onClick)
     }
 }
 

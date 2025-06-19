@@ -1,6 +1,8 @@
 import { ImageSource, Sound, Resource, FontSource, Loader, ImageWrapping } from 'excalibur'
 
 const Resources = {
+    //fonts
+    PressStart2P: new FontSource('fonts/PressStart2P-Regular.ttf', 'PressStart2P'),
     // Main backgrounds and UI
     Background: new ImageSource('background.png'),
     BoxClosed: new ImageSource('boxclosed.png'),
