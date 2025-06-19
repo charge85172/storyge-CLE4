@@ -1,6 +1,7 @@
 import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 import { Box } from "../items/box.js";
+import { UI } from "../ui.js";
 
 export class China extends Scene {
     //overbodig
@@ -21,5 +22,8 @@ export class China extends Scene {
 
         const box = new Box(engine);
         this.add(box);
+
+        this.ui = new UI();
+        this.add(this.ui);
     }
 }

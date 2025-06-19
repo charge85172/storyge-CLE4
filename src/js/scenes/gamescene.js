@@ -1,7 +1,10 @@
 import { Actor, Scene, Vector, Color } from "excalibur";
 import { Resources } from "../resources.js";
+import { UI } from "../ui.js";
 
 export class GameScene extends Scene {
+
+    ui;
 
     onInitialize(){
         const bgSprite = Resources.Background.toSprite()
@@ -13,6 +16,9 @@ export class GameScene extends Scene {
         bgActor.graphics.use(bgSprite)
         this.add(bgActor)
         this.createGrid
+
+        this.ui = new UI();
+        this.add(this.ui);
     }
 
     onActivate(ctx, engine) {

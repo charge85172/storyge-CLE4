@@ -29,9 +29,6 @@ export class Game extends Engine {
         this.add('game', new GameScene())
         this.add('itemreceivescreen', new ItemReceiveScreen());
         this.goToScene('start')
-
-        this.ui = new UI();
-        this.add(this.ui);
     }
 }
 
