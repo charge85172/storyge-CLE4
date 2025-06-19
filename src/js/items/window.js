@@ -7,7 +7,7 @@ export class Window extends Actor {
         this.graphics.use(Resources.Window.toSprite())
         this.scale = new Vector(0.2, 0.2)
 
-        this.tag = "item";
+        this.tag = "furnitureItem";
 
     }
 }
