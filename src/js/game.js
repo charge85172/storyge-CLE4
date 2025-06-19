@@ -3,9 +3,11 @@ import { ResourceLoader } from "./resources.js"
 import { StartScreen } from "./scenes/startscreen.js"
 import { GameScene } from "./scenes/gamescene.js"
 import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
+import { UI } from "./ui.js"
 
 export class Game extends Engine {
 
+    ui;
     playerProgress
 
     constructor() {
@@ -27,6 +29,9 @@ export class Game extends Engine {
         this.add('game', new GameScene())
         this.add('itemreceivescreen', new ItemReceiveScreen());
         this.goToScene('start')
+
+        this.ui = new UI();
+        this.add(this.ui);
     }
 }
 
