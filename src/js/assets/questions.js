@@ -1,12 +1,12 @@
 export const chinaQuestions = [
     {
-        itemId: null,
+        itemId: 10,
         text: "What is this creature's symbolism?",
         options: ["Chaos", "Grace", "Imperial Power", "Courage"],
         answer: "Imperial Power"
     },
     {
-        itemId: null,
+        itemId: [13, 15],
         text: "What is the name of this/his staff?",
         options: ["Huo Qiang", "Ruyi Jingu Bang", "Huojian Qiang", "Luyi Jingu Bang"],
         answer: "Ruyi Jingu Bang"
@@ -24,7 +24,7 @@ export const chinaQuestions = [
         answer: "Zhou"
     },
     {
-        itemId: null,
+        itemId: 9,
         text: "What is this kind of Chinese porcelain called?",
         options: ["Qinghua", "Dehua", "Chinghwa", "Baekja"],
         answer: "Qinghua"

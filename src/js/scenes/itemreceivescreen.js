@@ -15,6 +15,7 @@ import { Shelf } from "../items/shelf.js";
 import { SunWukong } from "../items/sunwukong.js";
 import { Window } from "../items/window.js";
 import { WukongStaff } from "../items/wukongstaff.js";
+import { chinaQuestions } from "../assets/questions.js";
 
 export class ItemReceiveScreen extends Scene {
 
