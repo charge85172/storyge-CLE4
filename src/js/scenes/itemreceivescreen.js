@@ -8,7 +8,13 @@ import { Chinesefan } from "../items/chinesefan.js";
 import { GoldCoin } from "../items/goldcoin.js";
 import { GoldIngot } from "../items/goldingot.js";
 import { Scroll } from "../items/scroll.js";
-import { chinaQuestions } from "../assets/questions.js";
+import { ChinesePorcelain } from "../items/chineseporcelain.js";
+import { DragonScroll } from "../items/dragonscroll.js";
+import { Plant } from "../items/plant.js";
+import { Shelf } from "../items/shelf.js";  
+import { SunWukong } from "../items/sunwukong.js";
+import { Window } from "../items/window.js";
+import { WukongStaff } from "../items/wukongstaff.js";
 
 export class ItemReceiveScreen extends Scene {
 
@@ -128,11 +134,33 @@ export class ItemReceiveScreen extends Scene {
                 this.label.text = "A golden coin!"
                 return new GoldCoin(new Vector(200, 360));
             case 7:
-                this.label.text = "A gold ingot?"
+                this.label.text = "A gold ingot!"
                 return new GoldIngot(new Vector(200, 360));
             case 8:
                 this.label.text = "A Scrolly scroll!"
                 return new Scroll(new Vector(200, 360));
+            case 9:
+                this.label.text = "A Chinese Porcelain!"
+                return new ChinesePorcelain(new Vector(200, 360));
+            case 10:
+                this.label.text = "A Dragon Scroll!"
+                return new DragonScroll(new Vector(200, 360));
+            case 11:
+                this.label.text = "A Plant!"
+                return new Plant(new Vector(200, 360));
+            case 12:
+                this.label.text = "A Shelf!"
+                return new Shelf(new Vector(200, 360));
+            case 13:
+                this.label.text = "It's Sun Wukong"
+                return new SunWukong(new Vector(200, 360));
+            case 14:
+                this.label.text = "A Window!"
+                return new Window(new Vector(200, 360));
+            case 15:
+                this.label.text = "It's Wukong's staff!"
+                // Hier kun je een nieuw item toevoegen als je dat wilt
+                return new WukongStaff(new Vector(200, 360));
             default:
                 console.error("Dit item bestaat dus niet:", idx);
                 return null;

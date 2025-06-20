@@ -13,10 +13,10 @@ export class Lamp extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 2, column: 3 },
-            { row: 2, column: 5 },
-            { row: 2, column: 7 },
-            { row: 2, column: 9.5 },
+            { row: 1, column: 3 },
+            { row: 1, column: 5 },
+            { row: 1, column: 7 },
+            { row: 1, column: 9.5 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()
