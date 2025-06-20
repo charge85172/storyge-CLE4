@@ -48,8 +48,6 @@ export class ItemReceiveScreen extends Scene {
                 this.showQuestionUI(question);
             }
         }
-
-        
     }
 
     onDeactivate() {
@@ -64,6 +62,27 @@ export class ItemReceiveScreen extends Scene {
         }
     }
 
+    getQuestionByItemId(itemId) {
+        return chinaQuestions.find(q => {
+            if (Array.isArray(q.itemId)) {
+                return q.itemId.includes(itemId)
+            }
+            return q.itemId === itemId;
+        });
+    }
+
+    showQuestionUI(question) {
+        if (!this.questionLabel) return;
+
+        this.questionLabel.text = question.text;
+
+        // (Optional) Also show options in console for debugging
+        console.log("Question:", question.text);
+        question.options.forEach((opt, i) => {
+            console.log(`${i + 1}. ${opt}`);
+        });
+    }
+
     drawBackground(engine) {
         const background = Resources.QuestionBook.toSprite();
         const backgroundActor = new Actor({
@@ -74,22 +93,28 @@ export class ItemReceiveScreen extends Scene {
         });
         backgroundActor.graphics.use(background);
         this.add(backgroundActor);
+        
+        // text
+        this.label = new Label({
+            pos: new Vector(290, 600),
+            font: Resources.PressStart2P.toFont({ size: 12 }),
+            color: Color.White
+        })
+        this.add(this.label)
+        
+        // Create the font and then set textAlign
+        const questionFont = Resources.PressStart2P.toFont({ size: 12 });
+        questionFont.textAlign = 'center';
 
         // Question label
         this.questionLabel = new Label({
-            pos: new Vector(400, 500), // Adjust position as needed
-            font: Resources.PressStart2P.toFont({ size: 12 }),
+            pos: new Vector(900, 150), // Center X position
+            font: questionFont,
             color: Color.White,
-            text: ""
+            text: "",
+            anchor: new Vector(0.5, 0.5) // Optional: center align the label's anchor too
         });
         this.add(this.questionLabel);
-
-        // text
-        this.label = new Label({
-            pos: new Vector(800, 250),
-            font: Resources.PressStart2P.toFont({ size: 12 }),
-        })
-        this.add(this.label)
 
         // prompt under the book
         this.promptLabel = new Label({
@@ -167,28 +192,6 @@ export class ItemReceiveScreen extends Scene {
                 return null;
         }
     }
-
-    getQuestionByItemId(itemId) {
-        return chinaQuestions.find(q => {
-            if (Array.isArray(q.itemId)) {
-                return q.itemId.includes(itemId)
-            }
-            return q.itemId === itemId;
-        });
-    }
-
-    showQuestionUI(question) {
-        if (!this.questionLabel) return;
-
-        this.questionLabel.text = question.text;
-
-        // (Optional) Also show options in console for debugging
-        console.log("Question:", question.text);
-        question.options.forEach((opt, i) => {
-            console.log(`${i + 1}. ${opt}`);
-        });
-    }
-
 
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
