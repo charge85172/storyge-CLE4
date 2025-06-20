@@ -13,6 +13,25 @@ export class StartScreen extends Scene {
 
     onActivate(ctx) {
         this._engine = ctx.engine;
+
+        // Background behind the museum
+        const introbackgroundSprite = Resources.IntroBackground.toSprite()
+        const screenWidth = this._engine.drawWidth
+        const screenHeight = this._engine.drawHeight
+        const introbackgroundActor = new Actor({
+            pos: new Vector(screenWidth / 2, screenHeight / 2),
+            width: screenWidth,
+            height: screenHeight
+        })
+        // Stretch the sprite to fill the actor
+        introbackgroundActor.graphics.use(introbackgroundSprite)
+        introbackgroundActor.graphics.anchor = new Vector(0.5, 0.5)
+        introbackgroundActor.scale = new Vector(
+            screenWidth / introbackgroundSprite.width,
+            screenHeight / introbackgroundSprite.height
+        )
+        this.add(introbackgroundActor)
+
         // Add background image (museum)
         const museumSprite = Resources.Museum.toSprite()
         const museumActor = new Actor({

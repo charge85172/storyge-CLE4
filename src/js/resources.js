@@ -5,6 +5,7 @@ const Resources = {
     PressStart2P: new FontSource('fonts/PressStart2P-Regular.ttf', 'PressStart2P'),
     // Main backgrounds and UI
     Background: new ImageSource('background.png'),
+    IntroBackground: new ImageSource('introbackground.png'),
     BoxClosed: new ImageSource('boxclosed.png'),
     BoxOpen: new ImageSource('boxopen.png'),
     ContinueButton: new ImageSource('continuebutton.png'),
@@ -15,6 +16,7 @@ const Resources = {
     Room: new ImageSource('room.png'),
     SettingsButton: new ImageSource('setting.png'),
     StartButton: new ImageSource('startbutton.png'),
+
 
     // Items from public/basic
     Bench: new ImageSource('basic/bench.png'),
