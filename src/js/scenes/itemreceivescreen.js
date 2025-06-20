@@ -41,7 +41,8 @@ export class ItemReceiveScreen extends Scene {
             this.add(item)
             this.currentItem = item;
             // Schaal en positie kun je hier ook nog aanpassen
-            item.pos = new Vector(360, 360);
+            item.pos = new Vector(400, 360);
+            item.scale = new Vector(0.19, 0.19);
 
             const question = this.getQuestionByItemId(ctx.data.id);
             if (question) {
@@ -55,6 +56,7 @@ export class ItemReceiveScreen extends Scene {
         if (this.currentItem) {
             this.currentItem.kill();
             this.currentItem = null;
+             // Reset de positie
         }
         // Maak de label leeg bij het verlaten van de scene
         if (this.label) {
