@@ -6,15 +6,15 @@ export class Pillar extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.Pillar.width, height: Resources.Pillar.height })
         this.graphics.use(Resources.Pillar.toSprite())
-        this.scale = new Vector(0.4, 0.4)
+        this.scale = new Vector(0.57, 0.57)
 
         this.tag = "item";
         
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 4, column: 2 },
-            { row: 4, column: 10.7 },
+            { row: 3, column: 2 },
+            { row: 3, column: 10.7 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()
