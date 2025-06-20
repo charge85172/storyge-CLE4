@@ -2,7 +2,6 @@ import { Actor, Scene, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 import { Box } from "../items/box.js";
 import { UI } from "../ui.js";
-import { HangedPlant } from "../items/hangedPlant.js";
 
 export class China extends Scene {
     //overbodig
@@ -35,8 +34,6 @@ export class China extends Scene {
             let row = Math.round(Math.random() * 8)
 
             let pos = new Vector(column * 100, row * 100)
-            const hangedPlant = new HangedPlant(new Vector(0, 0));
-            this.add(hangedPlant);
         }
     }
 

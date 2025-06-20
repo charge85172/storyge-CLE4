@@ -14,9 +14,9 @@ export class HangedPlant extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 2, column: 2 },
-            { row: 2, column: 3 },
-            { row: 2, column: 4 },
+            { row: 4, column: 4 },
+            { row: 4, column: 6.5 },
+            { row: 4, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()
@@ -54,4 +54,3 @@ export class HangedPlant extends Actor {
     }
     
 }
-

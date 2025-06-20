@@ -35,6 +35,8 @@ export class ItemReceiveScreen extends Scene {
             // Schaal en positie kun je hier ook nog aanpassen
             item.pos = new Vector(360, 360);
         }
+
+        
     }
 
     onDeactivate() {
@@ -75,32 +77,33 @@ export class ItemReceiveScreen extends Scene {
             color: Color.White,
         });
         this.add(this.promptLabel);
+
     }
 
     createReceivedItem(idx) {
         switch (idx) {
-            case 0:
+            case 1:
                 this.label.text = "A bench!"
                 return new Bench(new Vector(200, 360));
-            case 1:
+            case 2:
                 this.label.text = "A lamp!"
                 return new Lamp(new Vector(200, 360));
-            case 2:
+            case 3:
                 this.label.text = "An old pillar!"
                 return new Pillar(new Vector(200, 360));
-            case 3:
+            case 4:
                 this.label.text = "A hanging plant!"
                 return new HangedPlant(new Vector(200, 360));
-            case 4:
+            case 5:
                 this.label.text = "A Chinese Fan!"
                 return new Chinesefan(new Vector(200, 360));
-            case 5:
+            case 6:
                 this.label.text = "A golden coin!"
                 return new GoldCoin(new Vector(200, 360));
-            case 6:
+            case 7:
                 this.label.text = "A gold ingot?"
                 return new GoldIngot(new Vector(200, 360));
-            case 7:
+            case 8:
                 this.label.text = "A Scrolly scroll!"
                 return new Scroll(new Vector(200, 360));
             default:
@@ -108,10 +111,11 @@ export class ItemReceiveScreen extends Scene {
                 return null;
         }
     }
-    onPostUpdate() {
-        if (this.engine.input.keyboard.wasPressed(Keys.Space)) {
-            this.engine.goToScene('china')
-            console.log("Back to China scene")
+
+    onPostUpdate(engine) {
+        if (engine.input.keyboard.wasPressed(Keys.Space)) {
+            engine.goToScene('china');
+            console.log("Back to China scene");
         }
     }
 }
