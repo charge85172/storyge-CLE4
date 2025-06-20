@@ -8,6 +8,7 @@ import { Chinesefan } from "../items/chinesefan.js";
 import { GoldCoin } from "../items/goldcoin.js";
 import { GoldIngot } from "../items/goldingot.js";
 import { Scroll } from "../items/scroll.js";
+import { chinaQuestions } from "../assets/questions.js";
 
 export class ItemReceiveScreen extends Scene {
 
@@ -34,6 +35,11 @@ export class ItemReceiveScreen extends Scene {
             this.currentItem = item;
             // Schaal en positie kun je hier ook nog aanpassen
             item.pos = new Vector(360, 360);
+
+            const question = this.getQuestionByItemId(ctx.data.id);
+            if (question) {
+                this.showQuestionUI(question);
+            }
         }
 
         
@@ -62,6 +68,15 @@ export class ItemReceiveScreen extends Scene {
         backgroundActor.graphics.use(background);
         this.add(backgroundActor);
 
+        // Question label
+        this.questionLabel = new Label({
+            pos: new Vector(400, 500), // Adjust position as needed
+            font: Resources.PressStart2P.toFont({ size: 12 }),
+            color: Color.White,
+            text: ""
+        });
+        this.add(this.questionLabel);
+
         // text
         this.label = new Label({
             pos: new Vector(800, 250),
@@ -78,6 +93,18 @@ export class ItemReceiveScreen extends Scene {
         });
         this.add(this.promptLabel);
 
+    }
+
+    // When an item is received
+    onItemReceived(itemIndex) {
+        const item = createReceivedItem(itemIndex); // your function
+        const question = questionBook.getQuestionByItemId(itemIndex);
+
+        if (question) {
+            showQuestionUI(question); // your own UI rendering function
+        } else {
+            console.log("No question for this item.");
+        }
     }
 
     createReceivedItem(idx) {
@@ -111,6 +138,28 @@ export class ItemReceiveScreen extends Scene {
                 return null;
         }
     }
+
+    getQuestionByItemId(itemId) {
+        return chinaQuestions.find(q => {
+            if (Array.isArray(q.itemId)) {
+                return q.itemId.includes(itemId)
+            }
+            return q.itemId === itemId;
+        });
+    }
+
+    showQuestionUI(question) {
+        if (!this.questionLabel) return;
+
+        this.questionLabel.text = question.text;
+
+        // (Optional) Also show options in console for debugging
+        console.log("Question:", question.text);
+        question.options.forEach((opt, i) => {
+            console.log(`${i + 1}. ${opt}`);
+        });
+    }
+
 
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
