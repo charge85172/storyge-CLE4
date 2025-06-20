@@ -1,21 +1,7 @@
 import { Actor, Scene, Vector, Color, FontUnit, Label, Font, Keys } from "excalibur";
 import { Resources } from "../resources.js";
-import { Bench } from "../items/bench.js";
-import { Lamp } from "../items/lamp.js";
-import { Pillar } from "../items/pillar.js";
-import { HangedPlant } from "../items/hangedPlant.js";
-import { Chinesefan } from "../items/chinesefan.js";
-import { GoldCoin } from "../items/goldcoin.js";
-import { GoldIngot } from "../items/goldingot.js";
-import { Scroll } from "../items/scroll.js";
-import { ChinesePorcelain } from "../items/chineseporcelain.js";
-import { DragonScroll } from "../items/dragonscroll.js";
-import { Plant } from "../items/plant.js";
-import { Shelf } from "../items/shelf.js";  
-import { SunWukong } from "../items/sunwukong.js";
-import { Window } from "../items/window.js";
-import { WukongStaff } from "../items/wukongstaff.js";
 import { chinaQuestions } from "../assets/questions.js";
+import { furnitureItem, chineseItem, item as generalItem } from "../items/itemregistry.js";
 
 export class ItemReceiveScreen extends Scene {
 
@@ -33,14 +19,11 @@ export class ItemReceiveScreen extends Scene {
         if (this.label) {
             this.label.text = "";
         }
-        if (ctx?.data?.id) {
-            // Hier krijg je een ID binnen
+        if (ctx?.data?.id != null) {  // Laat ID 0 toe, maar check of ctx.data bestaat
             console.log("boek ontvangt item: " + ctx.data.id);
-            // Plaats het juiste object voor dit ID in het boek
-            const item = this.createReceivedItem(ctx.data.id)
-            this.add(item)
+            const item = this.createReceivedItem(ctx.data.id);
+            this.add(item);
             this.currentItem = item;
-            // Schaal en positie kun je hier ook nog aanpassen
             item.pos = new Vector(400, 360);
             item.scale = new Vector(0.19, 0.19);
 
@@ -56,7 +39,7 @@ export class ItemReceiveScreen extends Scene {
         if (this.currentItem) {
             this.currentItem.kill();
             this.currentItem = null;
-             // Reset de positie
+            // Reset de positie
         }
         // Maak de label leeg bij het verlaten van de scene
         if (this.label) {
@@ -95,7 +78,7 @@ export class ItemReceiveScreen extends Scene {
         });
         backgroundActor.graphics.use(background);
         this.add(backgroundActor);
-        
+
         // text
         this.label = new Label({
             pos: new Vector(290, 600),
@@ -103,7 +86,7 @@ export class ItemReceiveScreen extends Scene {
             color: Color.White
         })
         this.add(this.label)
-        
+
         // Create the font and then set textAlign
         const questionFont = Resources.PressStart2P.toFont({ size: 12 });
         questionFont.textAlign = 'center';
@@ -132,7 +115,7 @@ export class ItemReceiveScreen extends Scene {
     // When an item is received
     onItemReceived(itemIndex) {
         const item = createReceivedItem(itemIndex); // your function
-        const question = questionBook.getQuestionByItemId(itemIndex);
+        const question = QuestionBook.getQuestionByItemId(itemIndex);
 
         if (question) {
             showQuestionUI(question); // your own UI rendering function
@@ -142,57 +125,23 @@ export class ItemReceiveScreen extends Scene {
     }
 
     createReceivedItem(idx) {
-        switch (idx) {
-            case 1:
-                this.label.text = "A bench!"
-                return new Bench(new Vector(200, 360));
-            case 2:
-                this.label.text = "A lamp!"
-                return new Lamp(new Vector(200, 360));
-            case 3:
-                this.label.text = "An old pillar!"
-                return new Pillar(new Vector(200, 360));
-            case 4:
-                this.label.text = "A hanging plant!"
-                return new HangedPlant(new Vector(200, 360));
-            case 5:
-                this.label.text = "A Chinese Fan!"
-                return new Chinesefan(new Vector(200, 360));
-            case 6:
-                this.label.text = "A golden coin!"
-                return new GoldCoin(new Vector(200, 360));
-            case 7:
-                this.label.text = "A gold ingot!"
-                return new GoldIngot(new Vector(200, 360));
-            case 8:
-                this.label.text = "A Scrolly scroll!"
-                return new Scroll(new Vector(200, 360));
-            case 9:
-                this.label.text = "A Chinese Porcelain!"
-                return new ChinesePorcelain(new Vector(200, 360));
-            case 10:
-                this.label.text = "A Dragon Scroll!"
-                return new DragonScroll(new Vector(200, 360));
-            case 11:
-                this.label.text = "A Plant!"
-                return new Plant(new Vector(200, 360));
-            case 12:
-                this.label.text = "A Shelf!"
-                return new Shelf(new Vector(200, 360));
-            case 13:
-                this.label.text = "It's Sun Wukong"
-                return new SunWukong(new Vector(200, 360));
-            case 14:
-                this.label.text = "A Window!"
-                return new Window(new Vector(200, 360));
-            case 15:
-                this.label.text = "It's Wukong's staff!"
-                // Hier kun je een nieuw item toevoegen als je dat wilt
-                return new WukongStaff(new Vector(200, 360));
-            default:
-                console.error("Dit item bestaat dus niet:", idx);
-                return null;
+        // Combineer losse items in enkele array
+        const itemRegistry = [...furnitureItem, ...generalItem, ...chineseItem];
+
+        const ItemClass = itemRegistry[idx];
+        if (!ItemClass) {
+            console.error("Invalid item index:", idx);
+            return null;
         }
+
+        const item = new ItemClass(new Vector(200, 360));
+        const labelNames = [
+            "A Bench!", "A Shelf!", "A Plant!", "A Window!", "A Hanged Plant!", "A Lamp!", "A Pillar!",
+            "A Chinese Fan!", "A Dragon Scroll!", "A Chinese Porcelain!",
+            "It's Sun Wukong", "It's Wukong's staff!", "A Gold Coin!", "A Gold Ingot!", "A Scroll!"
+        ];
+        this.label.text = labelNames[idx] || "Unknown item!";
+        return item;
     }
 
     onPostUpdate(engine) {

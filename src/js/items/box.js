@@ -1,40 +1,6 @@
 import { Actor, Vector, Keys, Label, Color } from "excalibur";
 import { Resources } from "../resources.js";
-import { HangedPlant } from "../items/hangedPlant.js";
-import { Bench } from "../items/bench.js";
-import { Pillar } from "../items/pillar.js";
-import { Chinesefan } from "../items/chinesefan.js";
-import { GoldCoin } from "../items/goldcoin.js";    
-import { GoldIngot } from "../items/goldingot.js";
-import { Scroll } from "../items/scroll.js";
-import { Lamp } from "../items/lamp.js";
-import { ChinesePorcelain } from "../items/chineseporcelain.js";
-import { DragonScroll } from "../items/dragonscroll.js";
-import { Plant } from "../items/plant.js";
-import { Shelf } from "../items/shelf.js";
-import { SunWukong } from "../items/sunwukong.js";
-import { Window } from "../items/window.js";
-import { WukongStaff } from "../items/wukongstaff.js";
-
-// Item ID dat je nodig hebt om Item te spawnen
-const ITEM_IDS = {
-    BENCH: 1,
-    LAMP: 2,
-    PILLAR: 3,
-    HANGED_PLANT: 4,
-    CHINESE_FAN: 5,
-    GOLD_COIN: 6,
-    GOLD_INGOT: 7,
-    SCROLL: 8,
-    CHINESE_PORCELAIN: 9,
-    DRAGON_SCROLL: 10,
-    PLANT: 11,
-    SHELF: 12,
-    SUN_WUKONG: 13,
-    WINDOW: 14, 
-    WUKONG_STAFF: 15
-    // Voeg andere items toe
-};
+import { furnitureItem, chineseItem, item as generalItem } from "./itemregistry.js";
 
 export class Box extends Actor {
     constructor(engine) {
@@ -63,6 +29,14 @@ export class Box extends Actor {
             anchor: Vector.Half
         });
         this.addChild(this.promptLabel);
+
+        // Initialize queues as copies of the imported arrays
+        this.furnitureQueue = [...furnitureItem];
+        this.generalQueue = [...generalItem];
+        this.culturalQueue = [...chineseItem];
+
+        // Save a combined registry for ID lookup
+        this.itemRegistry = [...this.furnitureQueue, ...this.generalQueue, ...this.culturalQueue];
     }
 
     onPostUpdate() {
@@ -87,74 +61,53 @@ export class Box extends Actor {
     }
 
     giveRandomItem() {
-        const id = Math.floor(Math.random() * 16);
-        this.lastGivenItem = id;
-        this.scene.engine.playerProgress.push(id);
+        let itemClass = null;
 
-        // Spawn item alleen wanneer correct ID
-        if (id === ITEM_IDS.BENCH) {
-            const bench = new Bench();
-            this.scene.add(bench);
-        }
-        if (id === ITEM_IDS.LAMP) {
-            const lamp = new Lamp();
-            this.scene.add(lamp);
-        }
-        if (id === ITEM_IDS.PILLAR) {
-            const pillar = new Pillar();
-            this.scene.add(pillar);
-        }
-        if (id === ITEM_IDS.HANGED_PLANT) {
-            const hangedPlant = new HangedPlant();
-            this.scene.add(hangedPlant);
-        }
-        if (id === ITEM_IDS.CHINESE_FAN) {
-            const chinesefan = new Chinesefan();
-            this.scene.add(chinesefan);
-        }
-        if (id === ITEM_IDS.GOLD_COIN) {
-            const goldCoin = new GoldCoin();
-            this.scene.add(goldCoin);
-        }
-        if (id === ITEM_IDS.GOLD_INGOT) {
-            const goldIngot = new GoldIngot();
-            this.scene.add(goldIngot);
-        }
-        if (id === ITEM_IDS.SCROLL) {
-            const scroll = new Scroll();
-            this.scene.add(scroll);
-        }
-        if (id === ITEM_IDS.CHINESE_PORCELAIN) {
-            const chineseporcelain = new ChinesePorcelain();
-            this.scene.add(chineseporcelain);
-        }
-        if (id === ITEM_IDS.DRAGON_SCROLL) {
-            const dragonscroll = new DragonScroll();
-            this.scene.add(dragonscroll);
-        }
-        if (id === ITEM_IDS.PLANT) {
-            const plant = new Plant();
-            this.scene.add(plant);
-        }
-        if (id === ITEM_IDS.SHELF) {
-            const shelf = new Shelf();
-            this.scene.add(shelf);
-        }
-        if (id === ITEM_IDS.SUN_WUKONG) {
-            const sunWukong = new SunWukong();
-            this.scene.add(sunWukong);
-        }
-        if (id === ITEM_IDS.WINDOW) {
-            const window = new Window();
-            this.scene.add(window);
-        }
-        if (id === ITEM_IDS.WUKONG_STAFF) {
-            const wukongStaff = new WukongStaff();
-            this.scene.add(wukongStaff);
+        if (this.furnitureQueue.length > 0) {
+            // Eerst furtnitureQueue (furniture items)
+            const index = Math.floor(Math.random() * this.furnitureQueue.length);
+            itemClass = this.furnitureQueue.splice(index, 1)[0];
+        } else {
+            // combineer culturalQueue (chinese items) en generalQueue (items)
+            const combinedQueues = [];
+
+            // Kijk waar welke items vandaan komen
+            this.culturalQueue.forEach(item => combinedQueues.push({ item, source: 'cultural' }));
+            this.generalQueue.forEach(item => combinedQueues.push({ item, source: 'general' }));
+
+            if (combinedQueues.length > 0) {
+                const index = Math.floor(Math.random() * combinedQueues.length);
+                const chosen = combinedQueues[index];
+
+                itemClass = chosen.item;
+
+                // Haal het item uit de juiste queue (zorg dat het niet wordt hergebruikt)
+                if (chosen.source === 'cultural') {
+                    const removeIndex = this.culturalQueue.indexOf(itemClass);
+                    if (removeIndex !== -1) this.culturalQueue.splice(removeIndex, 1);
+                } else {
+                    const removeIndex = this.generalQueue.indexOf(itemClass);
+                    if (removeIndex !== -1) this.generalQueue.splice(removeIndex, 1);
+                }
+            } else {
+                console.log("All items unpacked!");
+                return;
+            }
         }
 
-        this.scene.engine.goToScene('itemreceivescreen', {
-            sceneActivationData: { id }
-        });
+        if (itemClass) {
+            const itemInstance = new itemClass();
+            this.scene.add(itemInstance);
+
+            //Vind ID van het item in de itemRegistry
+            const id = this.itemRegistry.findIndex(cls => cls === itemClass);
+            this.scene.engine.playerProgress.push(id);
+
+            this.scene.engine.goToScene('itemreceivescreen', {
+                sceneActivationData: { id }
+            });
+        }
     }
+
+
 }

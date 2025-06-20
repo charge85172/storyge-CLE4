@@ -21,7 +21,7 @@ export class Bench extends Actor {
 
         this.placeAtPosition();
 
-        // 1 seconde om te bewegen
+        // 7 seconde om te bewegen
         setTimeout(() => {
             this.canMove = false;
             console.log("Movement disabled after spawn");
