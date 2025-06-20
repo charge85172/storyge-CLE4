@@ -6,16 +6,16 @@ export class Window extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.Window.width, height: Resources.Window.height })
         this.graphics.use(Resources.Window.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.25, 0.25)
 
         this.tag = "furnitureItem";
 
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 4, column: 4 },
+            { row: 4, column: 6.5 },
+            { row: 4, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

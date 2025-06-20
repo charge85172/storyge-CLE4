@@ -7,7 +7,7 @@ export class GoldCoin extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.ChineseGoldCoin.width, height: Resources.ChineseGoldCoin.height })
         this.graphics.use(Resources.ChineseGoldCoin.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.045, 0.045)
 
         // this.label = "chineseItem";
         this.tag = "chineseItem"
@@ -15,9 +15,9 @@ export class GoldCoin extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 2, column: 4 },
+            { row: 2, column: 6.5 },
+            { row: 2, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

@@ -87,7 +87,7 @@ export class Box extends Actor {
     }
 
     giveRandomItem() {
-        const id = Math.floor(Math.random() * 15);
+        const id = Math.floor(Math.random() * 16);
         this.lastGivenItem = id;
         this.scene.engine.playerProgress.push(id);
 

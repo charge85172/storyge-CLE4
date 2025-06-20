@@ -1,21 +1,22 @@
 import { Vector } from "excalibur";
 import { Resources } from "../resources.js"
 import { Actor } from "excalibur";
+import { Keys } from "excalibur";
 
 export class Plant extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.Plant.width, height: Resources.Plant.height })
         this.graphics.use(Resources.Plant.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.05, 0.05)
 
         this.tag = "item";
 
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 2, column: 4 },
+            { row: 2, column: 6.5 },
+            { row: 2, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

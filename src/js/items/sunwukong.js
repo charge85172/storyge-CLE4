@@ -6,16 +6,16 @@ export class SunWukong extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.ChineseSunWukong.width, height: Resources.ChineseSunWukong.height })
         this.graphics.use(Resources.ChineseSunWukong.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.06, 0.06)
 
         this.tag = "chineseItem"
 
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 2, column: 4 },
+            { row: 2, column: 6.5 },
+            { row: 2, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

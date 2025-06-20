@@ -13,9 +13,11 @@ export class WukongStaff extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 3, column: 1 },
+            { row: 3, column: 12 },
+
+            { row: 3, column: 2 },
+            { row: 3, column: 10.7 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

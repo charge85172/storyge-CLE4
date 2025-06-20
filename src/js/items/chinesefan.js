@@ -6,7 +6,7 @@ export class Chinesefan extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.ChineseFan.width, height: Resources.ChineseFan.height })
         this.graphics.use(Resources.ChineseFan.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.05, 0.05)
 
         // voorbeeld als je wil kunnen zien of dit item chinese is
         // this.tag = "chinese"
@@ -15,9 +15,9 @@ export class Chinesefan extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+            { row: 2, column: 4 },
+            { row: 2, column: 6.5 },
+            { row: 2, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

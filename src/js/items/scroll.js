@@ -6,16 +6,16 @@ export class Scroll extends Actor {
     constructor(pos) {
         super({ pos, width: Resources.ChineseScroll.width, height: Resources.ChineseScroll.height })
         this.graphics.use(Resources.ChineseScroll.toSprite())
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.05, 0.05)
 
         this.tag = "chineseItem";
 
         this.cellSize = 100
 
-        this.allowedPositions = [
-            { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
-            { row: 6, column: 9 },
+       this.allowedPositions = [
+            { row: 2, column: 4 },
+            { row: 2, column: 6.5 },
+            { row: 2, column: 9 },
         ]
         this.currentIndex = 0
         this.placeAtPosition()

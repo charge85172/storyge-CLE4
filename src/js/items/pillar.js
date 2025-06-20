@@ -13,6 +13,9 @@ export class Pillar extends Actor {
         this.cellSize = 100
 
         this.allowedPositions = [
+            { row: 3, column: 1 },
+            { row: 3, column: 12 },
+            
             { row: 3, column: 2 },
             { row: 3, column: 10.7 },
         ]
