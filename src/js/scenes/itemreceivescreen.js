@@ -119,6 +119,16 @@ export class ItemReceiveScreen extends Scene {
 
 
     drawBackground(engine) {
+        // Background behind the museum
+        const bookBackgroundSprite = Resources.Room.toSprite()
+        const bookBackgroundActor = new Actor({
+            pos: new Vector(engine.drawWidth / 2, engine.drawHeight / 2),
+            width: engine.drawWidth,
+            height: engine.drawHeight,
+        })
+        bookBackgroundActor.graphics.use(bookBackgroundSprite);
+        this.add(bookBackgroundActor);
+
         const background = Resources.QuestionBook.toSprite();
         const backgroundActor = new Actor({
             pos: new Vector(engine.drawWidth / 2, engine.drawHeight / 2),
