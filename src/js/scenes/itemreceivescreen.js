@@ -11,6 +11,10 @@ export class ItemReceiveScreen extends Scene {
     }
 
     onActivate(ctx) {
+        this.canPlaceItem = true;  // Allow placing the item after answering
+        this.questionAnswered = false;  // Track if question was answered
+        this.questionAnsweredCorrectly = false;  // Track if question was answered correctly
+
         if (this.currentItem) {
             this.currentItem.kill();
             this.currentItem = null;
@@ -86,31 +90,33 @@ export class ItemReceiveScreen extends Scene {
             ? correct.includes(selected)
             : selected === correct;
 
-        const itemId = this.currentItemIndex;
         const engine = this.engine;
+        const itemId = this.currentItemIndex;
 
         if (!engine.playerProgress) engine.playerProgress = {};
-        if (!engine.playerProgress[itemId]) engine.playerProgress[itemId] = {};
+        engine.playerProgress[itemId] = { received: true, correct: isCorrect };
+
+        this.questionAnswered = true;  // Mark that question was answered
+        this.questionAnsweredCorrectly = isCorrect;
 
         if (isCorrect) {
+            this.canPlaceItem = true;  // Allow placing the item
             this.label.text = "Correct! Press space to place it.";
             this.promptLabel.text = "press space to place this item in your room";
-            engine.playerProgress[itemId] = { received: true, correct: true };
         } else {
+            this.canPlaceItem = false;  // Do not allow placing the item
             this.label.text = "Wrong answer! Item lost.";
-            this.promptLabel.text = "";
-            engine.playerProgress[itemId] = { received: true, correct: false };
-
+            this.promptLabel.text = "press space to continue";
             if (this.currentItem) {
                 this.currentItem.kill();
                 this.currentItem = null;
             }
         }
 
-        // Remove answer buttons
         this.answerButtons.forEach(btn => btn.kill());
         this.answerButtons = [];
     }
+
 
     drawBackground(engine) {
         const background = Resources.QuestionBook.toSprite();
@@ -171,12 +177,36 @@ export class ItemReceiveScreen extends Scene {
 
     onPostUpdate(engine) {
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            if (this.currentItem) {
-                engine.goToScene('china');
-                console.log("Back to China scene");
-            } else {
+            if (!this.currentItem && !this.questionAnswered) {
                 console.log("No item to place.");
+                return;
+            }
+
+            const itemRegistry = [...furnitureItem, ...generalItem, ...chineseItem];
+            const itemClass = itemRegistry[this.currentItemIndex];
+
+            const isChineseItem = chineseItem.includes(itemClass);
+            const isFurnitureOrGeneral = furnitureItem.includes(itemClass) || generalItem.includes(itemClass);
+
+            if (isFurnitureOrGeneral) {
+                engine.goToScene('china');
+                console.log("Back to China scene (non-quiz item)");
+            } else if (isChineseItem) {
+                if (this.questionAnswered) {
+                    if (this.canPlaceItem) {
+                        engine.goToScene('china');
+                        console.log("Back to China scene (quiz answered correctly)");
+                    } else {
+                        engine.goToScene('china');
+                        console.log("Back to China scene (quiz answered incorrectly, item lost)");
+                    }
+                } else {
+                    console.log("Please answer the question before continuing.");
+                }
+            } else {
+                engine.goToScene('china');
             }
         }
     }
+
 }

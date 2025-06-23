@@ -9,6 +9,7 @@ export class UI extends ScreenElement {
         { key: 9, label: 'Chinese Porcelain' },
         { key: 8, label: 'Dragon Scroll' },
         { key: 12, label: 'Gold Coin' },
+        { key: 14, label: 'Scroll' },
         { key: 13, label: 'Gold Ingot' },
         { key: 10, label: 'Sun Wukong' },
         { key: 11, label: 'Wukong Staff' }

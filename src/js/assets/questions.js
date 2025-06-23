@@ -28,5 +28,11 @@ export const chinaQuestions = [
         text: "What is this kind of\nChinese porcelain called?",
         options: ["Qinghua", "Dehua", "Chinghwa", "Baekja"],
         answer: "Qinghua"
+    },
+    {
+        itemId: 14,
+        text: "What is this parchment scroll made off?",
+        options: ["Bamboo", "Animal Skin", "Wood", "Silk"],
+        answer: "Animal Skin"
     }
 ];
