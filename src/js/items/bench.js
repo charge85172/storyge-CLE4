@@ -12,7 +12,8 @@ export class Bench extends Actor {
 
         this.allowedPositions = [
             { row: 6, column: 4 },
-            { row: 6, column: 6.5 },
+            
+            // { row: 6, column: 6.5 }, deze row outcommenten zodat de box zichtbaar is.
             { row: 6, column: 9 },
         ];
 
