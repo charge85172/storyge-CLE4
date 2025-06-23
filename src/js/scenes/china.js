@@ -37,5 +37,17 @@ export class China extends Scene {
         }
     }
 
-  
+    onActivate(context) {
+        const engine = this.engine;
+
+        // ✅ Place Chinese item if marked from itemreceivescreen
+        if (engine.itemToPlaceInChina) {
+            const item = new engine.itemToPlaceInChina();
+            item.pos = new Vector(400, 360); // Set default placement
+            this.add(item);
+
+            console.log("Chinese item placed in the China scene after correct answer.");
+            engine.itemToPlaceInChina = null;
+        }
+    }
 }

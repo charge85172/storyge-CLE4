@@ -96,26 +96,29 @@ export class ItemReceiveScreen extends Scene {
         if (!engine.playerProgress) engine.playerProgress = {};
         engine.playerProgress[itemId] = { received: true, correct: isCorrect };
 
-        this.questionAnswered = true;  // Mark that question was answered
+        this.questionAnswered = true;
         this.questionAnsweredCorrectly = isCorrect;
 
         if (isCorrect) {
-            this.canPlaceItem = true;  // Allow placing the item
+            this.canPlaceItem = true;
             this.label.text = "Correct! Press space to place it.";
             this.promptLabel.text = "press space to place this item in your room";
         } else {
-            this.canPlaceItem = false;  // Do not allow placing the item
+            this.canPlaceItem = false;
             this.label.text = "Wrong answer! Item lost.";
             this.promptLabel.text = "press space to continue";
-            if (this.currentItem) {
-                this.currentItem.kill();
-                this.currentItem = null;
-            }
         }
 
         this.answerButtons.forEach(btn => btn.kill());
         this.answerButtons = [];
+
+        // If wrong, destroy the item
+        if (!isCorrect && this.currentItem) {
+            this.currentItem.kill();
+            this.currentItem = null;
+        }
     }
+
 
 
     drawBackground(engine) {
@@ -194,29 +197,30 @@ export class ItemReceiveScreen extends Scene {
 
             const itemRegistry = [...furnitureItem, ...generalItem, ...chineseItem];
             const itemClass = itemRegistry[this.currentItemIndex];
-
             const isChineseItem = chineseItem.includes(itemClass);
-            const isFurnitureOrGeneral = furnitureItem.includes(itemClass) || generalItem.includes(itemClass);
 
-            if (isFurnitureOrGeneral) {
-                engine.goToScene('china');
-                console.log("Back to China scene (non-quiz item)");
-            } else if (isChineseItem) {
+            if (isChineseItem) {
                 if (this.questionAnswered) {
                     if (this.canPlaceItem) {
-                        engine.goToScene('china');
-                        console.log("Back to China scene (quiz answered correctly)");
+                        // ✅ Mark item for placement in next scene (china)
+                        engine.itemToPlaceInChina = engine.pendingChineseItemClass;
+                        engine.pendingChineseItemClass = null;
+
+                        console.log("Chinese item placed in room (correct answer)");
                     } else {
-                        engine.goToScene('china');
-                        console.log("Back to China scene (quiz answered incorrectly, item lost)");
+                        console.log("Chinese item lost due to incorrect answer.");
                     }
+
+                    engine.goToScene('china');
                 } else {
                     console.log("Please answer the question before continuing.");
                 }
             } else {
+                // For non-Chinese items, just go back
                 engine.goToScene('china');
             }
         }
     }
+
 
 }
