@@ -1,53 +1,33 @@
-import { Label, ScreenElement, Vector, Font, Color, TextAlign, Actor } from "excalibur";
+import { Label, ScreenElement, Vector, Color } from "excalibur";
 import { Resources } from "./resources";
-// import { Chinesefan } from "./items/chinesefan";
-// import { ChinesePorcelain } from "./items/chineseporcelain";
-// import { DragonScroll } from "./items/dragonscroll";
-// import { GoldCoin } from "./items/goldcoin";
-// import { GoldIngot } from "./items/goldingot";
-// import { Scroll } from "./items/scroll";
-// import { SunWukong } from "./items/sunwukong";
-// import { WukongStaff } from "./items/wukongstaff";
 
 export class UI extends ScreenElement {
-
     checklistLabels = [];
+
     chineseItems = [
-        { key: 5, label: 'Chinese Fan' },
-        { key: null, label: 'Chinese Porcelain' },
-        { key: null, label: 'Dragon Scroll' },
-        { key: 6, label: 'Gold Coin' },
-        { key: 7, label: 'Gold Ingot' },
-        { key: 8, label: 'Scroll' },
-        { key: null, label: 'Sun Wukong' },
-        { key: null, label: 'Wukong Staff' }
+        { key: 7, label: 'Chinese Fan' },
+        { key: 9, label: 'Chinese Porcelain' },
+        { key: 8, label: 'Dragon Scroll' },
+        { key: 12, label: 'Gold Coin' },
+        { key: 13, label: 'Gold Ingot' },
+        { key: 10, label: 'Sun Wukong' },
+        { key: 11, label: 'Wukong Staff' }
     ];
 
     onInitialize(engine) {
-        console.log("UI initialized");
-        // @ts-ignore: playerProgress is a custom property
-        if (this.scene && this.scene.engine && this.scene.engine.playerProgress) {
-            // @ts-ignore: playerProgress is a custom property
-            console.log(this.scene.engine.playerProgress);
-        }
-
-
-        // Checklist UI
         this.createChecklist(engine);
     }
 
     createChecklist(engine) {
-        // Remove old checklist labels if any
         this.checklistLabels.forEach(label => this.removeChild(label));
         this.checklistLabels = [];
+
         let progress = {};
-        // @ts-ignore: playerProgress is a custom property
-        if (this.scene && this.scene.engine && this.scene.engine.playerProgress) {
-            // @ts-ignore: playerProgress is a custom property
-            progress = this.scene.engine.playerProgress;
+        if (engine.playerProgress) {
+            progress = engine.playerProgress;
         }
+
         this.chineseItems.forEach((item, idx) => {
-            // Assume playerProgress[item.key] = { received: true/false, correct: true/false }
             const itemProgress = progress[item.key] || {};
             const checked = itemProgress.received && itemProgress.correct;
             const label = new Label({
@@ -62,7 +42,6 @@ export class UI extends ScreenElement {
     }
 
     onPreUpdate(engine, delta) {
-        // Update checklist every frame in case progress changes
         this.createChecklist(engine);
     }
 }

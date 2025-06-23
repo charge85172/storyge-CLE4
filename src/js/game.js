@@ -23,7 +23,7 @@ export class Game extends Engine {
     }
 
     setupScenes() {
-        this.playerProgress = []
+        this.playerProgress = [];
 
         this.add('start', new StartScreen())
         this.add('game', new GameScene())
