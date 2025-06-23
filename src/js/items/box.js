@@ -96,13 +96,19 @@ export class Box extends Actor {
         }
 
         if (itemClass) {
-            const itemInstance = new itemClass();
-            this.scene.add(itemInstance);
-
-            //Vind ID van het item in de itemRegistry
             const id = this.itemRegistry.findIndex(cls => cls === itemClass);
-            this.scene.engine.playerProgress.push(id);
+            const isChineseItem = chineseItem.includes(itemClass);
 
+            // For furniture/general items, add directly to room
+            if (!isChineseItem) {
+                const itemInstance = new itemClass();
+                this.scene.add(itemInstance);
+
+                this.scene.engine.playerProgress.push({ id, correct: true }); // mark as placed
+                console.log("Non-question item placed immediately");
+            }
+
+            // Always go to receive screen for visual feedback + label + question (if needed)
             this.scene.engine.goToScene('itemreceivescreen', {
                 sceneActivationData: { id }
             });
