@@ -91,6 +91,7 @@ export class Box extends Actor {
                 }
             } else {
                 console.log("All items unpacked!");
+                this.scene.engine.goToScene('start');
                 return;
             }
         }
