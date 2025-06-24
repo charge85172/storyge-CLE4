@@ -1,4 +1,4 @@
-import { Scene, Label, Font, Color, Vector, Actor } from "excalibur"
+import { Scene, Label, Font, Color, Vector, Actor, Buttons } from "excalibur"
 import { Resources } from "../resources.js"
 import { StartButton } from "../assets/startbutton.js"
 import { China } from "./china.js"
@@ -48,7 +48,7 @@ export class StartScreen extends Scene {
             () => this.handleStart()
         )
         const startLabel = new Label({
-            text: "press S to start",
+            text: "press A to start",
             pos: new Vector(-175, 110),
             font: Resources.PressStart2P.toFont({ size: 12 }),
             color: Color.White,
@@ -62,7 +62,7 @@ export class StartScreen extends Scene {
             () => this.handleQuit()
         )
         const quitLabel = new Label({
-            text: "press Q to quit",
+            text: "press B to quit",
             pos: new Vector(-100, 85),
             font: Resources.PressStart2P.toFont({ size: 12 }),
             color: Color.White,
@@ -79,28 +79,17 @@ export class StartScreen extends Scene {
         })
         this.add(this.label)
 
-        // Keyboard event handling for S and Q
-        this._keyHandler = (evt) => {
-            if (evt.key === 'KeyS') {
-                this.handleStart();
-            }
-            if (evt.key === 'KeyQ') {
-                this.handleQuit();
-            }
+        // Remove any previous _gamepadHandler
+        if (this._gamepadHandler) {
+            this._engine.off('preupdate', this._gamepadHandler);
+            this._gamepadHandler = undefined;
         }
-        this._engine.input.keyboard.on('press', this._keyHandler);
-        setTimeout(() => {
-            const canvas = document.querySelector('canvas');
-            if (canvas) {
-                canvas.focus();
-            }
-        }, 500);
     }
 
     onDeactivate() {
-        // Remove keyboard event handler when scene is deactivated
-        if (this._engine && this._keyHandler) {
-            this._engine.input.keyboard.off('press', this._keyHandler)
+        // Remove gamepad handler
+        if (this._engine && this._gamepadHandler) {
+            this._engine.off('preupdate', this._gamepadHandler);
         }
     }
 
@@ -120,7 +109,24 @@ export class StartScreen extends Scene {
         console.log("China scene initialized")
     }
     handleQuit() {
+        // Close the browser tab or window if possible
+        if (window && window.close) {
+            window.close();
+        } else {
+            // As a fallback, try to redirect to a blank page
+            window.location.href = 'about:blank';
+        }
+    }
 
+    onPreUpdate(engine) {
+        if (!engine.mygamepad) return;
+        const gp = engine.mygamepad;
+        if (gp.isButtonPressed(Buttons.Face1)) {
+            this.handleStart();
+        }
+        if (gp.isButtonPressed(Buttons.Face2)) {
+            this.handleQuit();
+        }
     }
 }
 

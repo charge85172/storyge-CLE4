@@ -1,4 +1,4 @@
-import { Actor, Scene, Vector, Color, FontUnit, Label, Font, Keys } from "excalibur";
+import { Actor, Scene, Vector, Color, FontUnit, Label, Font, Keys, Buttons } from "excalibur";
 import { Resources } from "../resources.js";
 import { chinaQuestions } from "../assets/questions.js";
 import { furnitureItem, chineseItem, item as generalItem } from "../items/itemregistry.js";
@@ -188,38 +188,41 @@ export class ItemReceiveScreen extends Scene {
         return item;
     }
 
-    onPostUpdate(engine) {
-        if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            if (!this.currentItem && !this.questionAnswered) {
-                console.log("No item to place.");
-                return;
-            }
-
-            const itemRegistry = [...furnitureItem, ...generalItem, ...chineseItem];
-            const itemClass = itemRegistry[this.currentItemIndex];
-            const isChineseItem = chineseItem.includes(itemClass);
-
-            if (isChineseItem) {
-                if (this.questionAnswered) {
-                    if (this.canPlaceItem) {
-                        // ✅ Mark item for placement in next scene (china)
-                        engine.itemToPlaceInChina = engine.pendingChineseItemClass;
-                        engine.pendingChineseItemClass = null;
-
-                        console.log("Chinese item placed in room (correct answer)");
-                    } else {
-                        console.log("Chinese item lost due to incorrect answer.");
-                    }
-
-                    engine.goToScene('china');
-                } else {
-                    console.log("Please answer the question before continuing.");
+    onPreUpdate(engine) {
+        if (!engine.mygamepad) return;
+        const gp = engine.mygamepad;
+        if (typeof this._lastA !== 'boolean') this._lastA = false;
+        const isA = gp.isButtonPressed(Buttons.Face1);
+        // If there is no question, allow immediate continue
+        const noQuestion = !this.answerButtons || this.answerButtons.length === 0;
+        if (isA && !this._lastA) {
+            if (!this.questionAnswered && !noQuestion) {
+                if (this.answerButtons && this.answerButtons[0]) {
+                    this.answerButtons[0].emit('pointerup');
                 }
             } else {
-                // For non-Chinese items, just go back
-                engine.goToScene('china');
+                // Defensive: clear answerButtons to prevent double-trigger
+                this.answerButtons = [];
+                // Defensive: kill currentItem if not canPlaceItem
+                if (this.canPlaceItem || noQuestion) {
+                    if (this.currentItem) {
+                        engine.itemToPlaceInChina = this.currentItem.constructor;
+                        this.currentItem.kill();
+                        this.currentItem = null;
+                    } else {
+                        engine.itemToPlaceInChina = null;
+                    }
+                    engine.goToScene('china');
+                } else {
+                    if (this.currentItem) {
+                        this.currentItem.kill();
+                        this.currentItem = null;
+                    }
+                    engine.goToScene('game');
+                }
             }
         }
+        this._lastA = isA;
     }
 
 

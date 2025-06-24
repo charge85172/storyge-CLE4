@@ -1,6 +1,5 @@
 import { Resources } from "../resources.js"
 import { Actor, Vector } from "excalibur";
-import { Keys } from "excalibur";
 
 export class ChinesePorcelain extends Actor {
     constructor(pos) {
@@ -17,7 +16,7 @@ export class ChinesePorcelain extends Actor {
             { row: 6, column: 6.5 },
             { row: 6, column: 9 },
         ]
- 
+
         this.currentIndex = 0;
         this.canMove = true; // Kan bewegen na spawnen
 
@@ -39,23 +38,23 @@ export class ChinesePorcelain extends Actor {
     }
 
     onPreUpdate(engine) {
-        if (!this.canMove) return; //Fuck your movement
-
-        const kb = engine.input.keyboard;
-
-        if (kb.wasPressed(Keys.W) || kb.wasPressed(Keys.Up)) {
+        if (!this.canMove) return;
+        if (!this.scene || this.scene.engine.currentSceneKey !== 'china') return;
+        if (!engine.mygamepad) return;
+        const gp = engine.mygamepad;
+        if (gp.isButtonPressed(12)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.S) || kb.wasPressed(Keys.Down)) {
+        if (gp.isButtonPressed(13)) {
             this.currentIndex++;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.A) || kb.wasPressed(Keys.Left)) {
+        if (gp.isButtonPressed(14)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.D) || kb.wasPressed(Keys.Right)) {
+        if (gp.isButtonPressed(15)) {
             this.currentIndex++;
             this.placeAtPosition();
         }

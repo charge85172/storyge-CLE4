@@ -8,7 +8,8 @@ import { UI } from "./ui.js"
 export class Game extends Engine {
 
     ui;
-    playerProgress
+    playerProgress;
+    mygamepad;
 
     constructor() {
         super({
@@ -22,6 +23,7 @@ export class Game extends Engine {
         this.start(ResourceLoader).then(() => this.setupScenes())
     }
 
+
     setupScenes() {
         this.playerProgress = [];
 
@@ -29,6 +31,20 @@ export class Game extends Engine {
         this.add('game', new GameScene())
         this.add('itemreceivescreen', new ItemReceiveScreen());
         this.goToScene('start')
+
+        this.input.gamepads.enabled = true
+        this.input.gamepads.on('connect', (connectevent) => {
+            console.log("gamepad detected")
+            this.mygamepad = connectevent.gamepad
+        })
+    }
+
+    onPreUpdate() {
+    }
+
+    onPostUpdate() {
+        if (this.mygamepad) {
+        }
     }
 }
 

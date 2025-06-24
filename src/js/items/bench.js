@@ -1,4 +1,4 @@
-import { Actor, Vector, Keys } from "excalibur";
+import { Actor, Vector, Keys, Axes, Buttons } from "excalibur";
 import { Resources } from "../resources.js";
 
 export class Bench extends Actor {
@@ -12,7 +12,7 @@ export class Bench extends Actor {
 
         this.allowedPositions = [
             { row: 6, column: 4 },
-            
+
             // { row: 6, column: 6.5 }, deze row outcommenten zodat de box zichtbaar is.
             { row: 6, column: 9 },
         ];
@@ -38,23 +38,23 @@ export class Bench extends Actor {
     }
 
     onPreUpdate(engine) {
-        if (!this.canMove) return; //Fuck your movement
-
-        const kb = engine.input.keyboard;
-
-        if (kb.wasPressed(Keys.W) || kb.wasPressed(Keys.Up)) {
+        if (!this.scene || this.scene.engine.currentSceneKey !== 'china') return;
+        if (!engine.mygamepad) return;
+        if (!this.canMove) return;
+        const gp = engine.mygamepad;
+        if (gp.isButtonPressed(12)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.S) || kb.wasPressed(Keys.Down)) {
+        if (gp.isButtonPressed(13)) {
             this.currentIndex++;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.A) || kb.wasPressed(Keys.Left)) {
+        if (gp.isButtonPressed(14)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (kb.wasPressed(Keys.D) || kb.wasPressed(Keys.Right)) {
+        if (gp.isButtonPressed(15)) {
             this.currentIndex++;
             this.placeAtPosition();
         }

@@ -1,4 +1,4 @@
-import { Actor, Vector, Keys, Label, Color } from "excalibur";
+import { Actor, Vector, Label, Color, Axes, Buttons } from "excalibur";
 import { Resources } from "../resources.js";
 import { furnitureItem, chineseItem, item as generalItem } from "./itemregistry.js";
 
@@ -22,7 +22,7 @@ export class Box extends Actor {
 
         // Add label for prompt
         this.promptLabel = new Label({
-            text: "press space to begin unpacking",
+            text: "press A to begin unpacking",
             pos: new Vector(-175, 90),
             font: Resources.PressStart2P.toFont({ size: 12 }),
             color: Color.White,
@@ -39,8 +39,13 @@ export class Box extends Actor {
         this.itemRegistry = [...this.furnitureQueue, ...this.generalQueue, ...this.culturalQueue];
     }
 
-    onPostUpdate() {
-        if (this.scene.engine.input.keyboard.wasPressed(Keys.Space)) {
+    onPreUpdate(engine) {
+        if (engine.mygamepad === null) {
+            console.log("er is geen gamepad");
+            return;
+        }
+        const gp = engine.mygamepad;
+        if (gp.isButtonPressed(Buttons.Face1)) { // A button
             if (!this.isOpen) {
                 this.openBox();
             } else {
@@ -53,9 +58,8 @@ export class Box extends Actor {
         if (this.isOpen) return;
         this.graphics.use(this.openSprite);
         this.isOpen = true;
-
         if (this.promptLabel) {
-            this.promptLabel.text = "press space to grab an item";
+            this.promptLabel.text = "press A to grab an item";
             this.promptLabel.pos = new Vector(-150, 90);
         }
     }
