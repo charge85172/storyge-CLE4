@@ -8,12 +8,15 @@ export class ItemReceiveScreen extends Scene {
         this.drawBackground(engine);
         this.answerButtons = [];
         this.currentItemIndex = null;
+
+        // 🔽 ADDED: Track last button states
+        this._lastButtons = [false, false, false, false]; // A, B, X, Y
     }
 
     onActivate(ctx) {
-        this.canPlaceItem = true;  // Allow placing the item after answering
-        this.questionAnswered = false;  // Track if question was answered
-        this.questionAnsweredCorrectly = false;  // Track if question was answered correctly
+        this.canPlaceItem = true;
+        this.questionAnswered = false;
+        this.questionAnsweredCorrectly = false;
 
         if (this.currentItem) {
             this.currentItem.kill();
@@ -66,13 +69,14 @@ export class ItemReceiveScreen extends Scene {
 
         this.questionLabel.text = question.text;
 
-        // Clear old answer buttons
         this.answerButtons.forEach(btn => btn.kill());
         this.answerButtons = [];
 
+        const buttonLabels = ["[A]", "[B]", "[X]", "[Y]"]; // 🔽 ADDED
+
         question.options.forEach((option, index) => {
             const button = new Label({
-                text: option,
+                text: `${buttonLabels[index] ?? ""} ${option}`, // 🔽 ADDED labels
                 pos: new Vector(800, 220 + index * 40),
                 font: Resources.PressStart2P.toFont({ size: 10 }),
                 color: Color.White,
@@ -112,17 +116,13 @@ export class ItemReceiveScreen extends Scene {
         this.answerButtons.forEach(btn => btn.kill());
         this.answerButtons = [];
 
-        // If wrong, destroy the item
         if (!isCorrect && this.currentItem) {
             this.currentItem.kill();
             this.currentItem = null;
         }
     }
 
-
-
     drawBackground(engine) {
-        // Background behind the museum
         const bookBackgroundSprite = Resources.Room.toSprite()
         const bookBackgroundActor = new Actor({
             pos: new Vector(engine.drawWidth / 2, engine.drawHeight / 2),
@@ -188,42 +188,53 @@ export class ItemReceiveScreen extends Scene {
         return item;
     }
 
+    // 🔽 REPLACED ORIGINAL onPreUpdate with full controller support
     onPreUpdate(engine) {
         if (!engine.mygamepad) return;
         const gp = engine.mygamepad;
-        if (typeof this._lastA !== 'boolean') this._lastA = false;
-        const isA = gp.isButtonPressed(Buttons.Face1);
-        // If there is no question, allow immediate continue
+
+        const buttonMap = [
+            Buttons.Face1, // A
+            Buttons.Face2, // B
+            Buttons.Face3, // X
+            Buttons.Face4  // Y
+        ];
+
         const noQuestion = !this.answerButtons || this.answerButtons.length === 0;
-        if (isA && !this._lastA) {
-            if (!this.questionAnswered && !noQuestion) {
-                if (this.answerButtons && this.answerButtons[0]) {
-                    this.answerButtons[0].emit('pointerup');
-                }
-            } else {
-                // Defensive: clear answerButtons to prevent double-trigger
-                this.answerButtons = [];
-                // Defensive: kill currentItem if not canPlaceItem
-                if (this.canPlaceItem || noQuestion) {
-                    if (this.currentItem) {
-                        engine.itemToPlaceInChina = this.currentItem.constructor;
-                        this.currentItem.kill();
-                        this.currentItem = null;
-                    } else {
-                        engine.itemToPlaceInChina = null;
+
+        for (let i = 0; i < buttonMap.length; i++) {
+            const isPressed = gp.isButtonPressed(buttonMap[i]);
+            const wasPressed = this._lastButtons[i];
+
+            if (isPressed && !wasPressed) {
+                if (!this.questionAnswered && !noQuestion) {
+                    const button = this.answerButtons[i];
+                    if (button) {
+                        button.emit('pointerup'); // Simulate click
                     }
-                    engine.goToScene('china');
                 } else {
-                    if (this.currentItem) {
-                        this.currentItem.kill();
-                        this.currentItem = null;
+                    this.answerButtons = [];
+
+                    if (this.canPlaceItem || noQuestion) {
+                        if (this.currentItem) {
+                            engine.itemToPlaceInChina = this.currentItem.constructor;
+                            this.currentItem.kill();
+                            this.currentItem = null;
+                        } else {
+                            engine.itemToPlaceInChina = null;
+                        }
+                        engine.goToScene('china');
+                    } else {
+                        if (this.currentItem) {
+                            this.currentItem.kill();
+                            this.currentItem = null;
+                        }
+                        engine.goToScene('game');
                     }
-                    engine.goToScene('game');
                 }
             }
+
+            this._lastButtons[i] = isPressed;
         }
-        this._lastA = isA;
     }
-
-
 }
