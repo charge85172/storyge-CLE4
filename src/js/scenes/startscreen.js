@@ -121,10 +121,10 @@ export class StartScreen extends Scene {
     onPreUpdate(engine) {
         if (!engine.mygamepad) return;
         const gp = engine.mygamepad;
-        if (gp.isButtonPressed(Buttons.Face1)) {
+        if (gp.wasButtonPressed(Buttons.Face1)) {
             this.handleStart();
         }
-        if (gp.isButtonPressed(Buttons.Face2)) {
+        if (gp.wasButtonPressed(Buttons.Face2)) {
             this.handleQuit();
         }
     }

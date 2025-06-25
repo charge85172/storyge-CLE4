@@ -34,19 +34,19 @@ export class Lamp extends Actor {
         if (!engine.mygamepad) return;
         if (!this.canMove) return;
         const gp = engine.mygamepad;
-        if (gp.isButtonPressed(12)) {
+        if (gp.wasButtonPressed(12)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (gp.isButtonPressed(13)) {
+        if (gp.wasButtonPressed(13)) {
             this.currentIndex++;
             this.placeAtPosition();
         }
-        if (gp.isButtonPressed(14)) {
+        if (gp.wasButtonPressed(14)) {
             this.currentIndex--;
             this.placeAtPosition();
         }
-        if (gp.isButtonPressed(15)) {
+        if (gp.wasButtonPressed(15)) {
             this.currentIndex++;
             this.placeAtPosition();
         }

@@ -45,7 +45,7 @@ export class Box extends Actor {
             return;
         }
         const gp = engine.mygamepad;
-        if (gp.isButtonPressed(Buttons.Face1)) { // A button
+        if (gp.wasButtonPressed(Buttons.Face1)) { // A button
             if (!this.isOpen) {
                 this.openBox();
             } else {

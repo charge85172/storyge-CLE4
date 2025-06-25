@@ -74,6 +74,7 @@ export class ItemReceiveScreen extends Scene {
 
         const buttonLabels = ["[A]", "[B]", "[X]", "[Y]"]; // 🔽 ADDED
 
+
         question.options.forEach((option, index) => {
             const button = new Label({
                 text: `${buttonLabels[index] ?? ""} ${option}`, // 🔽 ADDED labels
@@ -90,6 +91,7 @@ export class ItemReceiveScreen extends Scene {
     }
 
     checkAnswer(selected, correct) {
+        
         const isCorrect = Array.isArray(correct)
             ? correct.includes(selected)
             : selected === correct;
@@ -203,10 +205,12 @@ export class ItemReceiveScreen extends Scene {
         const noQuestion = !this.answerButtons || this.answerButtons.length === 0;
 
         for (let i = 0; i < buttonMap.length; i++) {
-            const isPressed = gp.isButtonPressed(buttonMap[i]);
+            const isPressed = gp.wasButtonPressed(buttonMap[i]);
             const wasPressed = this._lastButtons[i];
-
+            
+            
             if (isPressed && !wasPressed) {
+                // console.log('button press:',isPressed, wasPressed, buttonMap[i]);
                 if (!this.questionAnswered && !noQuestion) {
                     const button = this.answerButtons[i];
                     if (button) {
