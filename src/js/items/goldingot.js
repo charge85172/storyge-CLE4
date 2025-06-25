@@ -38,23 +38,16 @@ export class GoldIngot extends Actor {
     }
 
     onPreUpdate(engine) {
-        if (!this.canMove) return;
         if (!this.scene || this.scene.engine.currentSceneKey !== 'china') return;
         if (!engine.mygamepad) return;
+        if (!this.canMove) return;
         const gp = engine.mygamepad;
-        if (gp.wasButtonPressed(12)) {
+        // Use left stick for movement
+        const x = gp.getAxes(Axes.LeftStickX);
+        if (x < -0.5) {
             this.currentIndex--;
             this.placeAtPosition();
-        }
-        if (gp.wasButtonPressed(13)) {
-            this.currentIndex++;
-            this.placeAtPosition();
-        }
-        if (gp.wasButtonPressed(14)) {
-            this.currentIndex--;
-            this.placeAtPosition();
-        }
-        if (gp.wasButtonPressed(15)) {
+        } else if (x > 0.5) {
             this.currentIndex++;
             this.placeAtPosition();
         }

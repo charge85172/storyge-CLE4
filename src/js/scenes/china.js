@@ -39,13 +39,17 @@ export class China extends Scene {
 
     onActivate(context) {
         const engine = this.engine;
-
-        // ✅ Place Chinese item if marked from itemreceivescreen
+        // Only place item if not already present
         if (engine.itemToPlaceInChina) {
+            // Remove any existing item of the same type
+            this.actors.forEach(actor => {
+                if (actor instanceof engine.itemToPlaceInChina) {
+                    actor.kill();
+                }
+            });
             const item = new engine.itemToPlaceInChina();
             item.pos = new Vector(400, 360); // Set default placement
             this.add(item);
-
             console.log("Chinese item placed in the China scene after correct answer.");
             engine.itemToPlaceInChina = null;
         }

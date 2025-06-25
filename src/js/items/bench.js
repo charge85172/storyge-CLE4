@@ -42,21 +42,16 @@ export class Bench extends Actor {
         if (!engine.mygamepad) return;
         if (!this.canMove) return;
         const gp = engine.mygamepad;
-        if (gp.wasButtonPressed(12)) {
+        if (typeof this._lastX !== 'number') this._lastX = 0;
+        const x = gp.getAxes(Axes.LeftStickX);
+        // Edge-detection for left/right movement
+        if (x < -0.5 && this._lastX >= -0.5) {
             this.currentIndex--;
             this.placeAtPosition();
-        }
-        if (gp.wasButtonPressed(13)) {
+        } else if (x > 0.5 && this._lastX <= 0.5) {
             this.currentIndex++;
             this.placeAtPosition();
         }
-        if (gp.wasButtonPressed(14)) {
-            this.currentIndex--;
-            this.placeAtPosition();
-        }
-        if (gp.wasButtonPressed(15)) {
-            this.currentIndex++;
-            this.placeAtPosition();
-        }
+        this._lastX = x;
     }
 }
