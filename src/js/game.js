@@ -20,6 +20,7 @@ export class Game extends Engine {
             pixelArt: true,
             displayMode: DisplayMode.FitScreen
         })
+        this._suppressPlayButton = true; // Prevents the play button from showing up in the browser
         this.start(ResourceLoader).then(() => this.setupScenes())
     }
 
