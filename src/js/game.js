@@ -4,6 +4,7 @@ import { StartScreen } from "./scenes/startscreen.js"
 import { GameScene } from "./scenes/gamescene.js"
 import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
 import { UI } from "./ui.js"
+import { Player } from "./player.js"
 
 export class Game extends Engine {
 
@@ -23,6 +24,16 @@ export class Game extends Engine {
         this._suppressPlayButton = true; // Prevents the play button from showing up in the browser
         this.start(ResourceLoader).then(() => this.setupScenes())
     }
+
+    startGame(){
+        this.input.gamepads.enabled = true
+        this.input.gamepads.on('connect', (connectevent) => {
+            console.log("gamepad detected")
+            this.mygamepad = connectevent.gamepad
+        })
+    }
+
+    
 
 
     setupScenes() {
