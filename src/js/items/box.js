@@ -68,14 +68,11 @@ export class Box extends Actor {
         let itemClass = null;
 
         if (this.furnitureQueue.length > 0) {
-            // Eerst furtnitureQueue (furniture items)
             const index = Math.floor(Math.random() * this.furnitureQueue.length);
             itemClass = this.furnitureQueue.splice(index, 1)[0];
         } else {
-            // combineer culturalQueue (chinese items) en generalQueue (items)
             const combinedQueues = [];
 
-            // Kijk waar welke items vandaan komen
             this.culturalQueue.forEach(item => combinedQueues.push({ item, source: 'cultural' }));
             this.generalQueue.forEach(item => combinedQueues.push({ item, source: 'general' }));
 
@@ -85,7 +82,6 @@ export class Box extends Actor {
 
                 itemClass = chosen.item;
 
-                // Haal het item uit de juiste queue (zorg dat het niet wordt hergebruikt)
                 if (chosen.source === 'cultural') {
                     const removeIndex = this.culturalQueue.indexOf(itemClass);
                     if (removeIndex !== -1) this.culturalQueue.splice(removeIndex, 1);
@@ -95,8 +91,24 @@ export class Box extends Actor {
                 }
             } else {
                 console.log("All items unpacked!");
-                this.scene.engine.goToScene('start');
-                return;
+
+                // ✅ Clean up China scene items
+                const chinaScene = this.scene.engine.scenes['china'];
+                if (chinaScene && chinaScene.actors) {
+                    chinaScene.actors.forEach(actor => actor.kill());
+                }
+
+                console.log("All items unpacked!");
+
+                // Remove all items in China scene
+                this.scene.actors.forEach(actor => {
+                    if (actor !== this && !(actor instanceof Label)) {
+                        actor.kill();
+                    }
+                });
+
+                this.scene.engine.goToScene('gameover');
+
             }
         }
 
@@ -108,10 +120,9 @@ export class Box extends Actor {
                 const itemInstance = new itemClass();
                 this.scene.add(itemInstance);
 
-                this.scene.engine.playerProgress.push({ id, correct: true }); // Immediate placement
+                this.scene.engine.playerProgress.push({ id, correct: true });
                 console.log("Non-Chinese item placed immediately");
             } else {
-                // Store class only, not instance (we create it later if answer is correct)
                 this.scene.engine.pendingChineseItemClass = itemClass;
             }
 
@@ -119,7 +130,7 @@ export class Box extends Actor {
                 sceneActivationData: { id }
             });
         }
-
     }
+
 
 }

@@ -3,6 +3,7 @@ import { ResourceLoader } from "./resources.js"
 import { StartScreen } from "./scenes/startscreen.js"
 import { GameScene } from "./scenes/gamescene.js"
 import { ItemReceiveScreen } from "./scenes/itemreceivescreen.js"
+import { GameOverScreen } from "./scenes/gameover.js"
 import { UI } from "./ui.js"
 import { Player } from "./player.js"
 
@@ -25,7 +26,7 @@ export class Game extends Engine {
         this.start(ResourceLoader).then(() => this.setupScenes())
     }
 
-    startGame(){
+    startGame() {
         this.input.gamepads.enabled = true
         this.input.gamepads.on('connect', (connectevent) => {
             console.log("gamepad detected")
@@ -33,7 +34,7 @@ export class Game extends Engine {
         })
     }
 
-    
+
 
 
     setupScenes() {
@@ -42,6 +43,7 @@ export class Game extends Engine {
         this.add('start', new StartScreen())
         this.add('game', new GameScene())
         this.add('itemreceivescreen', new ItemReceiveScreen());
+        this.add('gameover', new GameOverScreen())
         this.goToScene('start')
 
         this.input.gamepads.enabled = true

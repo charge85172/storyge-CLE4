@@ -12,79 +12,85 @@ export class StartScreen extends Scene {
     // }
 
     onActivate(ctx) {
+        this.clear(); // 🧼 Clear all actors from previous scene usage
         this._engine = ctx.engine;
 
-        // Background behind the museum
-        const introbackgroundSprite = Resources.IntroBackground.toSprite()
-        const screenWidth = this._engine.drawWidth
-        const screenHeight = this._engine.drawHeight
+        this._engine.backgroundColor = Color.Black; // ✅ Prevent blue flash
+
+        // Add background
+        const introbackgroundSprite = Resources.IntroBackground.toSprite();
+        const screenWidth = this._engine.drawWidth;
+        const screenHeight = this._engine.drawHeight;
+
         const introbackgroundActor = new Actor({
             pos: new Vector(screenWidth / 2, screenHeight / 2),
             width: screenWidth,
             height: screenHeight
-        })
-        // Stretch the sprite to fill the actor
-        introbackgroundActor.graphics.use(introbackgroundSprite)
-        introbackgroundActor.graphics.anchor = new Vector(0.5, 0.5)
+        });
+
+        introbackgroundActor.graphics.use(introbackgroundSprite);
+        introbackgroundActor.graphics.anchor = Vector.Half;
         introbackgroundActor.scale = new Vector(
             screenWidth / introbackgroundSprite.width,
             screenHeight / introbackgroundSprite.height
-        )
-        this.add(introbackgroundActor)
+        );
+        this.add(introbackgroundActor);
 
-        // Add background image (museum)
-        const museumSprite = Resources.Museum.toSprite()
+        // Museum image
+        const museumSprite = Resources.Museum.toSprite();
         const museumActor = new Actor({
             pos: new Vector(640, 360),
             width: museumSprite.width,
             height: museumSprite.height
-        })
-        museumActor.graphics.use(museumSprite)
-        this.add(museumActor)
+        });
+        museumActor.graphics.use(museumSprite);
+        this.add(museumActor);
 
-        // Add Start button (right side, above quit)
+        // Start button
         this._startButton = new StartButton(
             new Vector(1100, 350),
             () => this.handleStart()
-        )
+        );
         const startLabel = new Label({
             text: "press A to start",
             pos: new Vector(-175, 110),
             font: Resources.PressStart2P.toFont({ size: 12 }),
-            color: Color.White,
-        })
-        this._startButton.addChild(startLabel)
-        this.add(this._startButton)
+            color: Color.White
+        });
+        this._startButton.addChild(startLabel);
+        this.add(this._startButton);
 
-        // Add Quit button (right side, below start)
+        // Quit button
         this._quitButton = new QuitButton(
             new Vector(1050, 500),
             () => this.handleQuit()
-        )
+        );
         const quitLabel = new Label({
             text: "press B to quit",
             pos: new Vector(-100, 85),
             font: Resources.PressStart2P.toFont({ size: 12 }),
-            color: Color.White,
-        })
-        this._quitButton.addChild(quitLabel)
-        this.add(this._quitButton)
+            color: Color.White
+        });
+        this._quitButton.addChild(quitLabel);
+        this.add(this._quitButton);
 
-        // Add a label above the buttons
+        // Game title
         this.label = new Label({
             text: "Storyge",
             pos: new Vector(900, 250),
             font: Resources.PressStart2P.toFont({ size: 40 }),
-            color: Color.White,
-        })
-        this.add(this.label)
+            color: Color.White
+        });
+        this.add(this.label);
 
-        // Remove any previous _gamepadHandler
+        // Remove any old handlers
         if (this._gamepadHandler) {
             this._engine.off('preupdate', this._gamepadHandler);
             this._gamepadHandler = undefined;
         }
     }
+
+
 
     onDeactivate() {
         // Remove gamepad handler
